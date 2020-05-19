@@ -3,13 +3,9 @@
 
 Re lecture du sujet et des objectifs
 
-Initiation du planning:
+Initiation du planning.
 
-https://docs.google.com/spreadsheets/d/1zFA-i-1NdZ8Shb0r4ff5VIl1XpRT2mgDH1xgEIHK-KE/edit?ts=5ec284a0#gid=992991251
-
-Mise en place d'un plan d'adressage en ipv4/ipv6, à suivre le 19/05:
-
-https://docs.google.com/spreadsheets/d/1zFA-i-1NdZ8Shb0r4ff5VIl1XpRT2mgDH1xgEIHK-KE/edit?ts=5ec284a0#gid=0
+Mise en place d'un plan d'adressage en ipv4/ipv6, à suivre le 19/05.
 
 
 # Détail de la journée du 19 05 2020
@@ -38,3 +34,12 @@ Par exemple, le vlan 10 aura les adresses suivantes :
 La lettre A dans 2A0A désigne le switchblock.
 
 Par contre, « notre convention » implique une contrainte : on ne pourra identifier le vlan dans l’adresse que jusqu’à 255 (soit FF en héxadécimal) car nous avons la place de la variance que pour 2 hexa. Par exemple, vlan300 (12C) ne pourra pas s’écrire avec notre convention.
+
+
+Planning à jour:
+
+https://docs.google.com/spreadsheets/d/1zFA-i-1NdZ8Shb0r4ff5VIl1XpRT2mgDH1xgEIHK-KE/edit?ts=5ec284a0#gid=992991251
+
+Plan d'adressage IPV4/IPV6:
+
+https://docs.google.com/spreadsheets/d/1zFA-i-1NdZ8Shb0r4ff5VIl1XpRT2mgDH1xgEIHK-KE/edit?ts=5ec284a0#gid=0
