@@ -1,12 +1,3 @@
-| Date | Objectif | 
-|----------|:-------------:| 
-| 18/05/2020 | Définition du plan d'adressage ipv4/ipv6 |
-| A définir |  A définir |
-| A définir |  A définir |
-| A définir |  A définir |
-| A définir |  A définir |
-| A définir |  A définir |
-| A définir |  A définir |
 
 https://docs.google.com/spreadsheets/d/1zFA-i-1NdZ8Shb0r4ff5VIl1XpRT2mgDH1xgEIHK-KE/edit#gid=992991251
 
