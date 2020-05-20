@@ -60,3 +60,5 @@ Par exemple, sur PC1 avec la commande « nmtui », 7 adresses IP seront configu�
 3 adresses IP privées.
 
 Des commandes de vérification (ping -6) permettront de valider la config ipv6.
+
+# Pour aller plus loin : ICMPv6 et ND
