@@ -43,3 +43,20 @@ https://docs.google.com/spreadsheets/d/1zFA-i-1NdZ8Shb0r4ff5VIl1XpRT2mgDH1xgEIHK
 Plan d'adressage IPV4/IPV6:
 
 https://docs.google.com/spreadsheets/d/1zFA-i-1NdZ8Shb0r4ff5VIl1XpRT2mgDH1xgEIHK-KE/edit?ts=5ec284a0#gid=0
+
+Finalement, avec le réseau 2001:470:c814:2000::/52, on manque d’espace.
+Un /48 aurait été plus approprié si on veut identifier l’écriture des vlan jusqu’à 10 bit.
+
+Les interfaces physiques sur AS1 et AS2 ne prennent pas d’adresse IP.
+
+Il y a une adresse IP commune et virtuelle choisie par le protocole HSRP est fe80 ::d :1.
+
+Les vlans étant dans le même bloc, chacune de ces interfaces devraient trouver une adresse publique et privée en IPv6.
+
+L’enjeu sera de faire évoluer le playbook ccna.yml afin d’y ajouter la fonctionnalité DHCPv6 qui attribuera des adresses IPv6 en autoconfig. Ici 2001:470…et FD00:470… généré à partir de l’adresse MAC.
+Par exemple, sur PC1 avec la commande « nmtui », 7 adresses IP seront configuées :
+1 adresse IP link local
+3 adresses IP publiques : 1 en autoconfig sous windows et 1 attribuée par DHCPv6.
+3 adresses IP privées.
+
+Des commandes de vérification (ping -6) permettront de valider la config ipv6.
