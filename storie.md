@@ -53,7 +53,7 @@ Il y a une adresse IP commune et virtuelle choisie par le protocole HSRP est fe8
 
 Les vlans étant dans le même bloc, chacune de ces interfaces devraient trouver une adresse publique et privée en IPv6.
 
-L’enjeu sera de faire évoluer le playbook ccna.yml afin d’y ajouter la fonctionnalité DHCPv6 qui attribuera des adresses IPv6 en autoconfig. Ici 2001:470…et FD00:470… généré à partir de l’adresse MAC.
+L’enjeu sera de faire évoluer le playbook ccna.yml afin d’y ajouter un rôle DHCPv6 qui attribuera des adresses IPv6 en autoconfig. Ici 2001:470…et FD00:470… généré à partir de l’adresse MAC.
 Par exemple, sur PC1 avec la commande « nmtui », 7 adresses IP seront configuées :
 1 adresse IP link local
 3 adresses IP publiques : 1 en autoconfig sous windows et 1 attribuée par DHCPv6.
@@ -61,4 +61,13 @@ Par exemple, sur PC1 avec la commande « nmtui », 7 adresses IP seront configu�
 
 Des commandes de vérification (ping -6) permettront de valider la config ipv6.
 
-# Pour aller plus loin : ICMPv6 et ND
+- Pour aller plus loin : ICMPv6 et ND
+
+# Détail de la journée du 20 05 2020
+
+Nous avons lancé le livre de jeux de François adapté à nos valeurs : Les fichiers de l'inventaire ont été modifiés puis nous avons lancé la commande ansible-playbook ccna.yml.
+Sur les PC de la couche access, les ping fonctionnent.
+Nous avons éprouvé DNS et DHCP. 
+- Pour aller plus loin : Active Directory permettant d'authentifier les machines.
+- Service DNS dynamique
+
