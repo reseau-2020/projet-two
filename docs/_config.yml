@@ -55,6 +55,6 @@ plugins:
    - vendor/cache/
    - vendor/gems/
    - vendor/ruby/
-   - annexes/
-   - .annexes/
-   - /annexes/
+   - annexes/R1.md
+   - .annexes/R1.md
+   - /annexes/R1.md
