@@ -31,6 +31,23 @@ url: "https://reseau-2020.github.io" # the base hostname & protocol for your sit
 theme: minima
 plugins:
   - jekyll-feed
+  - jekyll-paginate
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jemoji
+  
+paginate_path: "/page:num/"
+
+paginate: 5
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: "post"
+
+
+exclude: ['sitemap.xml','feed.xml', 'LICENSE', 'README.md']
 
 # Exclude from processing.
 # The following items will not be processed, by default.
