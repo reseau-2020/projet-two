@@ -10,3 +10,7 @@ On présente la topologie choisie:
 ![image](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/Topo_projet.png?raw=true)
 
 Ainsi que le [plan d'adressage](https://docs.google.com/spreadsheets/d/1zFA-i-1NdZ8Shb0r4ff5VIl1XpRT2mgDH1xgEIHK-KE/edit?ts=5ec284a0#gid=0)
+
+# Annexes
+
+#include "https://github.com/reseau-2020/projet-two/edit/master/docs/_annexes/R1.md"
