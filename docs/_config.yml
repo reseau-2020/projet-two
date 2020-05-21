@@ -58,3 +58,6 @@ plugins:
    - annexes/R1.md
    - .annexes/R1.md
    - /annexes/R1.md
+   
+exclude: [workers]
+exclude: [annexes]
