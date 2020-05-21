@@ -1,8 +1,5 @@
 ---
-layout: post
-title:  "Article pour commencer"
-date:   2020-05-14
-categories: welcome
+
 ---
 
 Les sources du site web se situent dans le `docs/`. Il est nécessaire d'effectuer deux choses pour le faire fonctionner :
