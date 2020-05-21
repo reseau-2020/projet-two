@@ -57,3 +57,4 @@ plugins:
    - vendor/ruby/
    - annexes/
    - .annexes/
+   - /annexes/
