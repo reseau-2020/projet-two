@@ -20,7 +20,7 @@
 
 # title: Projet groupe 2
 # email: your-email@example.com
-description: >- # this means to ignore newlines until "baseurl:"
+# description: >- # this means to ignore newlines until "baseurl:"
   Cette page à pour simple objectif de montrer un suivi de nos activités lors du projet
 baseurl: "/projet-two" # the subpath of your site, e.g. /blog !!! A adapter
 url: "https://reseau-2020.github.io" # the base hostname & protocol for your site, e.g. http://example.com !!! ne pas modifier
