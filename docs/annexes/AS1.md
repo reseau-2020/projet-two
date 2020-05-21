@@ -1,5 +1,3 @@
-## Playbook de AS1 dans /inventories/ccna/host_vars/
-
 ```
 hostname: AS1
 group_channels:
