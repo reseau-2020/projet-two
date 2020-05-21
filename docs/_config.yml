@@ -28,7 +28,7 @@ url: "https://reseau-2020.github.io" # the base hostname & protocol for your sit
 # github_username:  goffinet
 
 # Build settings
-theme: jekyll-theme-architect
+# theme: jekyll-theme-architect
 plugins:
   - jekyll-feed
   - jekyll-paginate
