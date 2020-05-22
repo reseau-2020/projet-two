@@ -5,6 +5,17 @@ Ce projet consiste en la mise en place d'une topologie selon un cahier des charg
 
 L'ensemble des opérations se déroule suivant un [planning](https://docs.google.com/spreadsheets/d/1zFA-i-1NdZ8Shb0r4ff5VIl1XpRT2mgDH1xgEIHK-KE/edit?ts=5ec284a0#gid=992991251) établi au préalable. 
 
+## Sommaire
+
+#### Topologie
+#### Plan d'adressage Ipv4/Ipv6
+#### Configuration de Ansible (playbooks)
+#### Configuration d'un accès Internet avec Fortigate
+#### Mise en place d'un site distant via un PVN IPSEC avec Fortigate
+#### Configuration des services d'infrastructures
+#### Mise en place du monitoring (syslog)
+#### Annexes
+
 On présente la topologie choisie:
 
 ![image](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/Topo_projet.png?raw=true)
