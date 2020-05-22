@@ -5,7 +5,7 @@ Ce projet consiste en la mise en place d'une topologie selon un cahier des charg
 
 L'ensemble des opérations se déroule suivant un [planning](https://docs.google.com/spreadsheets/d/1zFA-i-1NdZ8Shb0r4ff5VIl1XpRT2mgDH1xgEIHK-KE/edit?ts=5ec284a0#gid=992991251) établi au préalable. 
 
-## Sommaire
+# Sommaire
 
 #### Topologie
 #### Plan d'adressage Ipv4/Ipv6
@@ -16,9 +16,14 @@ L'ensemble des opérations se déroule suivant un [planning](https://docs.google
 #### Mise en place du monitoring (syslog)
 #### Annexes
 
+
+# Topologie
+
 On présente la topologie choisie:
 
 ![image](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/Topo_projet.png?raw=true)
+
+# Plan d'adressage Ipv4/Ipv6 
 
 Ainsi que le [plan d'adressage](https://docs.google.com/spreadsheets/d/1zFA-i-1NdZ8Shb0r4ff5VIl1XpRT2mgDH1xgEIHK-KE/edit?ts=5ec284a0#gid=0)
 
