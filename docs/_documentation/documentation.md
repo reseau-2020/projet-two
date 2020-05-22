@@ -8,9 +8,9 @@ L'ensemble des opérations se déroule suivant un [planning](https://docs.google
 # Sommaire
 [link text](#destinationLinkName) 
 
-#### [Topologie](#Topologie)
-#### [link text]Plan d'adressage Ipv4/Ipv6
-#### [link text]Configuration de Ansible (playbooks)
+#### [Topologie](#Topo)
+#### [Plan d'adressage Ipv4/Ipv6]Plan d'adressage Ipv4/Ipv6
+#### [Configuration de Ansible (playbooks)]Configuration de Ansible (playbooks)
 #### [link text]Configuration d'un accès Internet avec Fortigate
 #### [link text]Mise en place d'un site distant via un PVN IPSEC avec Fortigate
 #### [link text]Configuration des services d'infrastructures
