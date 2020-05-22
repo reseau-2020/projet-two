@@ -9,13 +9,13 @@ L'ensemble des opérations se déroule suivant un [planning](https://docs.google
 [link text](#destinationLinkName) 
 
 #### [Topologie](#Topo)
-#### [Plan d'adressage Ipv4/Ipv6]Plan d'adressage Ipv4/Ipv6
-#### [Configuration de Ansible (playbooks)]Configuration de Ansible (playbooks)
-#### [link text]Configuration d'un accès Internet avec Fortigate
-#### [link text]Mise en place d'un site distant via un PVN IPSEC avec Fortigate
-#### [link text]Configuration des services d'infrastructures
-#### [link text]Mise en place du monitoring (syslog)
-#### [link text]Annexes
+#### [Plan d'adressage Ipv4/Ipv6](#plan)
+#### [Configuration de Ansible (playbooks)](#playbooks)
+#### [Configuration d'un accès Internet avec Fortigate](#fortigate)
+#### [Mise en place d'un site distant via un PVN IPSEC avec Fortigate](#vpn)
+#### [Configuration des services d'infrastructures](#infra)
+#### [Mise en place du monitoring (syslog)](#monitoring)
+#### [Annexes](#annexes)
 
 <a id="Topo"></a>
 # Topologie
@@ -24,10 +24,12 @@ On présente la topologie choisie:
 
 ![image](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/Topo_projet.png?raw=true)
 
+<a id="plan"></a>
 # Plan d'adressage Ipv4/Ipv6 
 
 Pour le plan d'adressage cliquez [ici](https://docs.google.com/spreadsheets/d/1zFA-i-1NdZ8Shb0r4ff5VIl1XpRT2mgDH1xgEIHK-KE/edit?ts=5ec284a0#gid=0).
 
+<a id="annexes"></a>
 # Annexes
 
 [Configuration de R1](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/R1.md) 
