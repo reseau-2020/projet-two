@@ -6,7 +6,6 @@ Ce projet consiste en la mise en place d'une topologie selon un cahier des charg
 L'ensemble des opérations se déroule suivant un [planning](https://docs.google.com/spreadsheets/d/1zFA-i-1NdZ8Shb0r4ff5VIl1XpRT2mgDH1xgEIHK-KE/edit?ts=5ec284a0#gid=992991251) établi au préalable. 
 
 # Sommaire
-[link text](#destinationLinkName) 
 
 #### [Topologie](#Topo)
 #### [Plan d'adressage Ipv4/Ipv6](#plan)
@@ -46,4 +45,3 @@ Pour le plan d'adressage cliquez [ici](https://docs.google.com/spreadsheets/d/1z
 
 [Configuration de DS2](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/DS2.md) 
 
-<a id="destinationLinkName"></a>
