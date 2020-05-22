@@ -25,7 +25,7 @@ On présente la topologie choisie:
 
 # Plan d'adressage Ipv4/Ipv6 
 
-Ainsi que le [plan d'adressage](https://docs.google.com/spreadsheets/d/1zFA-i-1NdZ8Shb0r4ff5VIl1XpRT2mgDH1xgEIHK-KE/edit?ts=5ec284a0#gid=0)
+Pour le plan d'adressage cliquez [ici](https://docs.google.com/spreadsheets/d/1zFA-i-1NdZ8Shb0r4ff5VIl1XpRT2mgDH1xgEIHK-KE/edit?ts=5ec284a0#gid=0)
 
 # Annexes
 
