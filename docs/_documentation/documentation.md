@@ -6,8 +6,9 @@ Ce projet consiste en la mise en place d'une topologie selon un cahier des charg
 L'ensemble des opérations se déroule suivant un [planning](https://docs.google.com/spreadsheets/d/1zFA-i-1NdZ8Shb0r4ff5VIl1XpRT2mgDH1xgEIHK-KE/edit?ts=5ec284a0#gid=992991251) établi au préalable. 
 
 # Sommaire
-[link text](#destinationLinkName)
-[link text](#Topologie)
+[link text](#destinationLinkName) 
+
+[Topologie](#Topologie)
 #### [link text]Plan d'adressage Ipv4/Ipv6
 #### [link text]Configuration de Ansible (playbooks)
 #### [link text]Configuration d'un accès Internet avec Fortigate
