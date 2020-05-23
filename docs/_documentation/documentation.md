@@ -1,3 +1,9 @@
+---
+layout: page
+title: Doc
+permalink: /docu/
+---
+
 # Projet AJC - groupe 2
 
 Dans le cadre de notre stage d'une durée de 3 mois orienté sur les réseaux informatiques, nous avons souhaités rendre une documentation technique montrant les différentes étapes du projet final.  
