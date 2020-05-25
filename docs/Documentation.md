@@ -58,6 +58,31 @@ PC9> ip dhcp
 DDORA IP 192.168.1.2/24
 ```
 
+Il s'agit maintenant de mettre en place un tunnel IPSEC entre HQ et BRANCH: 
+
+![image](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/_VPN/2.png?raw=true) 
+
+On se rend sur l'interface de HQ, pour cela il faut récupérer l'adresse Ipv4 du port 2 (sur notre schéma): 
+
+```
+HQ # get system interface physical
+        ==[port2]
+                mode: dhcp
+                ip: 192.168.122.51 255.255.255.0
+                ipv6: ::/0
+                status: up
+                speed: 1000Mbps (Duplex: full)
+
+```
+
+En tapant l'adresse "192.168.122.51" dans notre navigateur Internet, on peut se connecter à l'interface de gestion de HQ, utilisez les identifiants fourni par votre administrateur. 
+
+Se rendre dans l'onglet VPN>IPsec Wizard et configurer le tunnel tel que:  
+
+![image](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/_VPN/3.png?raw=true) 
+
+
+
 <a id="infra"></a>
 # Configuration des services d'infrastructures
 
