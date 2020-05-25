@@ -34,6 +34,27 @@ On présente la topologie choisie:
 
 Pour le plan d'adressage cliquez [ici](https://docs.google.com/spreadsheets/d/1zFA-i-1NdZ8Shb0r4ff5VIl1XpRT2mgDH1xgEIHK-KE/edit?ts=5ec284a0#gid=0).
 
+<a id="playbooks"></a>
+# Configuration de Ansible (playbooks)
+
+<a id="fortigate"></a>
+# Configuration d'un accès Internet avec Fortigate
+
+<a id="vpn"></a>
+# Mise en place d'un site distant via un PVN IPSEC avec Fortigate
+
+L'objectif est de mettre en place un site distant qui communiquere avec l'infrastructure de base à travers un tunnel IPSEC. Selon la topologie, PC9 sera capable de communiquer avec PC1 à PC8 et inversement. 
+
+Dans un premier temps on configure le réseau local de PC9: 
+
+
+
+<a id="infra"></a>
+# Configuration des services d'infrastructures
+
+<a id="monitoring"></a>
+# Mise en place du monitoring (syslog)
+
 <a id="annexes"></a>
 # Annexes
 
