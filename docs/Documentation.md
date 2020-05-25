@@ -47,7 +47,7 @@ L'objectif est de mettre en place un site distant qui communiquere avec l'infras
 
 Dans un premier temps on configure le réseau local de PC9: 
 
-
+![image](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/_VPN/1.png?raw=true)
 
 <a id="infra"></a>
 # Configuration des services d'infrastructures
