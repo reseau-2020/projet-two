@@ -19,8 +19,9 @@ L'ensemble des opérations se déroule suivant un [planning](https://docs.google
 #### [4.Configuration d'un accès Internet avec Fortigate](#fortigate)
 #### [5.Mise en place d'un site distant via un PVN IPSEC avec Fortigate](#vpn)
 #### [6.Configuration des services d'infrastructures (DNS)](#infra)
-#### [7.Mise en place du monitoring (syslog)](#monitoring)
-#### [8.Annexes](#annexe)
+#### [7.Tests de fiabilité](#test)
+#### [8.Mise en place du monitoring (syslog)](#monitoring)
+#### [9.Annexes](#annexe)
 
 <a id="Topo"></a>
 # 1.Topologie
@@ -292,11 +293,108 @@ www.google.com resolved to 216.58.209.228
 La résolution de nom est bien fonctionelle.
 
 
+<a id="test"></a>
+# 7.Tests de fiabilité
+
+### 7.1.Spanning tree
+
+Pour rappel DS1 est le root bridge pour vlan 10 et vlan 30 et DS2 est root bridge pour vlan 20 et 40.
+
+En cas de rupture d’une des liaisons, Spanning-tree offre un chemin alternatif via le second switch de couche Distribution. 
+
+En désignant l’un des switchs comme “root primary” pour certains VLANs et “root secondary” pour d’autres, et inversément pour l’autre switchc de Distribution, on arrive à répartir la charge du trafic sur les Trunks et à offrir un mécanisme de reprise sur erreur. 
+
+Sur notre topologie, prenons l'exemple du VLAN10:
+
+```
+DS1(config)#do sh spanning-tree vlan 10
+
+VLAN0010
+  Spanning tree enabled protocol rstp
+  Root ID    Priority    24586
+             Address     0cad.663d.1100
+             This bridge is the root
+             Hello Time   2 sec  Max Age 20 sec  Forward Delay 15 sec
+
+  Bridge ID  Priority    24586  (priority 24576 sys-id-ext 10)
+             Address     0cad.663d.1100
+             Hello Time   2 sec  Max Age 20 sec  Forward Delay 15 sec
+             Aging Time  300 sec
+
+Interface           Role Sts Cost      Prio.Nbr Type
+------------------- ---- --- --------- -------- --------------------------------
+Po3                 Desg FWD 3         128.66   P2p
+Po5                 Desg FWD 3         128.67   P2p
+```
+
+Sur DS2:
+
+```
+DS2#sh spanning-tree vlan 10
+
+VLAN0010
+  Spanning tree enabled protocol rstp
+  Root ID    Priority    24586
+             Address     0cad.663d.1100
+             Cost        3
+             Port        66 (Port-channel3)
+             Hello Time   2 sec  Max Age 20 sec  Forward Delay 15 sec
+
+  Bridge ID  Priority    28682  (priority 28672 sys-id-ext 10)
+             Address     0cad.6659.f400
+             Hello Time   2 sec  Max Age 20 sec  Forward Delay 15 sec
+             Aging Time  300 sec
+
+Interface           Role Sts Cost      Prio.Nbr Type
+------------------- ---- --- --------- -------- --------------------------------
+Po2                 Desg FWD 3         128.65   P2p
+Po3                 Root FWD 3         128.66   P2p
+Po4                 Desg FWD 3         128.67   P2p
+```
+
+On remarque que pour VLAN10, DS1 est le root -> **This bridge is the root**.
+
+En faisant tomber l’interface entre AS1 et DS1, on remarque que le ping (PC5 vers PC1) s’interrompt quelques instants pour récupérer la liaison. En vérifiant sur DS1 on remarque que celui-ci est toujours root. 
+
+Test:
+
+```
+PC5> ping 10.128.10.51 -t
+84 bytes from 10.128.10.51 icmp_seq=1 ttl=64 time=6.027 ms
+84 bytes from 10.128.10.51 icmp_seq=2 ttl=64 time=5.855 ms
+84 bytes from 10.128.10.51 icmp_seq=3 ttl=64 time=4.430 ms
+``` 
+
+Pendant le ping on coupe la liaison entre DS1 et AS1:
+
+```
+DS1(config)#int g0/0
+DS1(config-if)#shutdown
+DS1(config-if)#int g1/0
+DS1(config-if)#shutdown
+```
+
+En retournant sur PC5 on remarque que le ping s'interrompt quelques instants avant de reprendre la connectivité: 
+
+```
+PC5> ping 10.128.10.51 -t
+84 bytes from 10.128.10.51 icmp_seq=4 ttl=64 time=6.279 ms
+84 bytes from 10.128.10.51 icmp_seq=5 ttl=64 time=5.572 ms
+10.128.10.51 icmp_seq=6 timeout
+10.128.10.51 icmp_seq=7 timeout
+10.128.10.51 icmp_seq=8 timeout
+10.128.10.51 icmp_seq=9 timeout
+84 bytes from 10.128.10.51 icmp_seq=10 ttl=64 time=7.993 ms
+84 bytes from 10.128.10.51 icmp_seq=11 ttl=64 time=8.332 ms
+```
+
+
+
 <a id="monitoring"></a>
-# 7.Mise en place du monitoring (syslog)
+# 8.Mise en place du monitoring (syslog)
 
 <a id="annexe"></a>
-# 8.Annexes
+# 9.Annexes
 
 [Configuration de R1](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/R1.md) 
 
