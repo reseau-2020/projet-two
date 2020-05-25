@@ -116,6 +116,34 @@ id: GigabitEthernet0/1
 <a id="fortigate"></a>
 # Configuration d'un accès Internet avec Fortigate
 
+Pour cela il faut s'assurer que la sortie de R1 vers HQ ne soit plus configurée en NAT, dans notre cas nous avons définie l'adresse Ipv4 **10.0.1.1** de manière statique sur cette interface. 
+
+Se rendre sur l'interface de HQ, avec la commande "get system interface physical" on récupère l'adresse Ipv4:
+
+```
+HQ # get system interface physical
+        ==[port2]
+                mode: dhcp
+                ip: 192.168.122.51 255.255.255.0
+                ipv6: ::/0
+                status: up
+                speed: 1000Mbps (Duplex: full)
+
+```
+
+Dans l'onglet **Network>Interfaces**, on configure la liaison entre R1 et HQ, ici c'est le port 3: 
+
+![image](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/_Wan/1.jpg?raw=true)
+
+Pour donner l'accès à l'internet sur HQ on s'intéresse au port 2: 
+
+![image](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/_Wan/2.jpg?raw=true)
+
+Il faut également définir une route statique, se rendre dans l'onglet **Network>Static Routes**:
+
+![image](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/_Wan/3.jpg?raw=true)
+
+
 <a id="vpn"></a>
 # Mise en place d'un site distant via un PVN IPSEC avec Fortigate
 
