@@ -34,18 +34,18 @@ On présente la topologie choisie:
 
 Pour le plan d'adressage cliquez [ici](https://docs.google.com/spreadsheets/d/1zFA-i-1NdZ8Shb0r4ff5VIl1XpRT2mgDH1xgEIHK-KE/edit?ts=5ec284a0#gid=0).
 
-| routeur | interface |       IPv4      |                           IPv6                          |         Description        | Inventories |
-|:-------:|:---------:|:---------------:|:-------------------------------------------------------:|:--------------------------:|:-----------:|
-| R1      | g0/0      | 10.192.1.1/24   | fe80::1 2001:470:c814:2000::/64 FD00:470:c814:2000::/64 | LAN R1                     |    Tripod   |
-| R1      | g0/1      | 10.0.1.1        | fe80::cafe:2/64                                         | Passerelle vers l'internet |             |
-| R1      | g0/2      | 10.192.225.1/24 | fe80::1                                                 | Connexion vers R2          |             |
-| R1      | g0/3      | 10.192.226.1/24 | fe80::1                                                 | Connexion vers R3          |             |
-| R2      | g0/0      | 10.192.33.1/24  | fe80::2 2001:470:c814:2001::/64 FD00:470:c814:2001::/64 | LAN R2                     |             |
-| R2      | g0/1      | 10.192.225.2/24 | fe80::2                                                 | Connexion vers R1          |             |
-| R2      | g0/3      | 10.192.227.1/24 | fe80::2                                                 | Connexion vers R3          |             |
-| R3      | g0/0      | 10.192.65.1/24  | FE80::3 2001:470:c814:2002::/64 FD00:470:c814:2002::/64 | LAN R3                     |             |
-| R3      | g0/1      | 10.192.226.2/24 | fe80::3                                                 | Connexion vers R1          |             |
-| R3      | g0/2      | 10.192.227.2/24 | fe80::3                                                 | Connexion vers R2          |             | 
+| routeur | interface |       IPv4      |                           IPv6                          |         Description        |
+|:-------:|:---------:|:---------------:|:-------------------------------------------------------:|:--------------------------:|
+| R1      | g0/0      | 10.192.1.1/24   | fe80::1 2001:470:c814:2000::/64 FD00:470:c814:2000::/64 | LAN R1                     |
+| R1      | g0/1      | 10.0.1.1        | fe80::cafe:2/64                                         | Passerelle vers l'internet |
+| R1      | g0/2      | 10.192.225.1/24 | fe80::1                                                 | Connexion vers R2          |
+| R1      | g0/3      | 10.192.226.1/24 | fe80::1                                                 | Connexion vers R3          |
+| R2      | g0/0      | 10.192.33.1/24  | fe80::2 2001:470:c814:2001::/64 FD00:470:c814:2001::/64 | LAN R2                     |
+| R2      | g0/1      | 10.192.225.2/24 | fe80::2                                                 | Connexion vers R1          |
+| R2      | g0/3      | 10.192.227.1/24 | fe80::2                                                 | Connexion vers R3          | 
+| R3      | g0/0      | 10.192.65.1/24  | FE80::3 2001:470:c814:2002::/64 FD00:470:c814:2002::/64 | LAN R3                     |
+| R3      | g0/1      | 10.192.226.2/24 | fe80::3                                                 | Connexion vers R1          | 
+| R3      | g0/2      | 10.192.227.2/24 | fe80::3                                                 | Connexion vers R2          | 
 
 
 | R4 | g0/0 | 192.168.1.1 |
