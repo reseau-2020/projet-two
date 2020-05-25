@@ -74,12 +74,31 @@ HQ # get system interface physical
                 speed: 1000Mbps (Duplex: full)
 
 ```
+Récupérer également celle de BRANCH qui servira pour la configuration du tunnel: 
+
+```
+HQ # get system interface physical
+        ==[port2]
+                mode: dhcp
+                ip: 192.168.122.195 255.255.255.0
+                ipv6: ::/0
+                status: up
+                speed: 1000Mbps (Duplex: full)
+```
 
 En tapant l'adresse "192.168.122.51" dans notre navigateur Internet, on peut se connecter à l'interface de gestion de HQ, utilisez les identifiants fourni par votre administrateur. 
 
 Se rendre dans l'onglet VPN>IPsec Wizard et configurer le tunnel tel que:  
 
 ![image](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/_VPN/3.png?raw=true) 
+
+Ici on utilise l'adresse distance à laquelle se connecter via le port 2 (WAN), il s'agit donc de l'interface du port 2 de BRANCH: 
+
+![image](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/_VPN/4.png?raw=true) 
+
+Pour la dernière étape on configure le sous réseau local et distant, suivant notre topologie: 
+
+![image](![image](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/_VPN/5.png?raw=true) 
 
 
 
