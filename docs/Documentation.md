@@ -13,24 +13,24 @@ L'ensemble des opérations se déroule suivant un [planning](https://docs.google
 
 # Sommaire
 
-#### [Topologie](#Topo)
-#### [Plan d'adressage Ipv4/Ipv6](#plan)
-#### [Configuration de Ansible (playbooks)](#playbooks)
-#### [Configuration d'un accès Internet avec Fortigate](#fortigate)
-#### [Mise en place d'un site distant via un PVN IPSEC avec Fortigate](#vpn)
-#### [Configuration des services d'infrastructures(DNS)](#infra)
-#### [Mise en place du monitoring (syslog)](#monitoring)
-#### [Annexes](#annexe)
+#### [1.Topologie](#Topo)
+#### [2.Plan d'adressage Ipv4/Ipv6](#plan)
+#### [3.Configuration de Ansible (playbooks)](#playbooks)
+#### [4.Configuration d'un accès Internet avec Fortigate](#fortigate)
+#### [5.Mise en place d'un site distant via un PVN IPSEC avec Fortigate](#vpn)
+#### [6.Configuration des services d'infrastructures (DNS)](#infra)
+#### [7.Mise en place du monitoring (syslog)](#monitoring)
+#### [8.Annexes](#annexe)
 
 <a id="Topo"></a>
-# Topologie
+# 1.Topologie
 
 On présente la topologie choisie:
 
 ![image](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/Topo_projet.png?raw=true) 
 
 <a id="plan"></a>
-# Plan d'adressage Ipv4/Ipv6 
+# 2.Plan d'adressage Ipv4/Ipv6 
 
 Pour le plan d'adressage cliquez [ici](https://docs.google.com/spreadsheets/d/1zFA-i-1NdZ8Shb0r4ff5VIl1XpRT2mgDH1xgEIHK-KE/edit?ts=5ec284a0#gid=0).
 
@@ -97,7 +97,7 @@ Pour le plan d'adressage cliquez [ici](https://docs.google.com/spreadsheets/d/1z
 
 
 <a id="playbooks"></a>
-# Configuration de Ansible (playbooks) 
+# 3.Configuration de Ansible (playbooks) 
 
 L'ensemble sera lancé depuis un poste "controller" (voir topologie) 
 
@@ -114,7 +114,7 @@ id: GigabitEthernet0/1
 ```
 
 <a id="fortigate"></a>
-# Configuration d'un accès Internet avec Fortigate
+# 4.Configuration d'un accès Internet avec Fortigate
 
 Pour cela il faut s'assurer que la sortie de R1 vers HQ ne soit pas configuré en NAT, dans notre cas nous avons définie l'adresse Ipv4 **10.0.1.1** de manière statique sur cette interface. 
 
@@ -158,7 +158,7 @@ PC1> ping 1.1.1.1
 
 
 <a id="vpn"></a>
-# Mise en place d'un site distant via un PVN IPSEC avec Fortigate
+# 5.Mise en place d'un site distant via un PVN IPSEC avec Fortigate
 
 L'objectif est de mettre en place un site distant qui communiquere avec l'infrastructure de base à travers un tunnel IPSEC. Selon la topologie, PC9 sera capable de communiquer avec PC1 à PC8 et inversement. 
 
@@ -241,9 +241,9 @@ La connectivité est bien établie.
 **Remarque importante**: l'adresse Ipv4 définie sur les ports 2 respectifs de HQ et BRANCH est définie dynamiquement par DHCP, il se peut donc qu'elle soit ammenée à changer !
 
 <a id="infra"></a>
-# Configuration des services d'infrastructures
+# 6.Configuration des services d'infrastructures
 
-### DNS
+### 6.1.Service de résolution de domaine (DNS)
 
 Pour mettre en place la résolution de domaine, on se rend sur DS1 et DS2. Sur chaque pool de VLAN il faut attribuer le serveur DNS (on choisira 8.8.8.8)
 
@@ -290,10 +290,10 @@ La résolution de nom est bien fonctionelle.
 
 
 <a id="monitoring"></a>
-# Mise en place du monitoring (syslog)
+# 7.Mise en place du monitoring (syslog)
 
 <a id="annexe"></a>
-# Annexes
+# 8.Annexes
 
 [Configuration de R1](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/R1.md) 
 
