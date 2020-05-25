@@ -98,9 +98,29 @@ Ici on utilise l'adresse distance à laquelle se connecter via le port 2 (WAN), 
 
 Pour la dernière étape on configure le sous réseau local et distant, suivant notre topologie: 
 
-![image](![image](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/_VPN/5.png?raw=true) 
+![image](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/_VPN/5.png?raw=true) 
 
+A présent on configure BRANCH de la même manière en prenant soin d'indiquer les bonnes adresses Ipv4 ainsi que les réseaux locaux correspondants. 
+Une fois cette opération effectuée, on peut tester la connectivité entre PC9 et PC1 par exemple: 
 
+```
+PC9> ip dhcp
+DDORA IP 192.168.1.2/24
+```
+
+```
+PC1> ip dhcp
+DDORA IP 10.128.10.51/24
+```
+Et donc: 
+
+```
+PC9> ping 10.128.10.51
+84 bytes from 10.128.10.51 icmp_seq=1 ttl=58 time=9.578 ms
+84 bytes from 10.128.10.51 icmp_seq=2 ttl=58 time=9.590 ms
+```
+La connectivité est bien établie. 
+Remarque importante: l'adresse Ipv4 définie sur les ports 2 respectifs de HQ et BRANCH est définie dynamiquement par DHCP, il se peut donc qu'elle soit ammenée à changer. 
 
 <a id="infra"></a>
 # Configuration des services d'infrastructures
