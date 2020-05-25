@@ -145,7 +145,16 @@ Pour donner l'accès à l'internet sur HQ on s'intéresse au port 2:
 
 Il faut également définir une route statique, se rendre dans l'onglet **Network>Static Routes**:
 
-![image](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/_Wan/3.jpg?raw=true)
+![image](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/_Wan/3.jpg?raw=true) 
+
+On peut faire un simple test fonctionnel avec la commande "ping" depuis PC1 vers l'internet:
+
+```
+PC1> ping 1.1.1.1
+84 bytes from 1.1.1.1 icmp_seq=1 ttl=55 time=8.565 ms
+84 bytes from 1.1.1.1 icmp_seq=2 ttl=55 time=8.845 ms
+84 bytes from 1.1.1.1 icmp_seq=3 ttl=55 time=9.809 ms
+```
 
 
 <a id="vpn"></a>
