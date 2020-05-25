@@ -354,15 +354,15 @@ Po4                 Desg FWD 3         128.67   P2p
 
 On remarque que pour VLAN10, DS1 est le root -> **This bridge is the root**.
 
-En faisant tomber l’interface entre AS1 et DS1, on remarque que le ping (PC5 vers PC1) s’interrompt quelques instants pour récupérer la liaison. En vérifiant sur DS1 on remarque que celui-ci est toujours root. 
+En faisant tomber l’interface entre AS1 et DS1, on remarque que le ping (PC1 vers PC5) s’interrompt quelques instants pour récupérer la liaison. En vérifiant sur DS1 on remarque que celui-ci est toujours root. 
 
 Test:
 
 ```
-PC5> ping 10.128.10.51 -t
-84 bytes from 10.128.10.51 icmp_seq=1 ttl=64 time=6.027 ms
-84 bytes from 10.128.10.51 icmp_seq=2 ttl=64 time=5.855 ms
-84 bytes from 10.128.10.51 icmp_seq=3 ttl=64 time=4.430 ms
+PC1> ping 10.128.10.52 -t
+84 bytes from 10.128.10.52 icmp_seq=1 ttl=64 time=5.930 ms
+84 bytes from 10.128.10.52 icmp_seq=2 ttl=64 time=5.887 ms
+84 bytes from 10.128.10.52 icmp_seq=3 ttl=64 time=6.427 ms
 ``` 
 
 Pendant le ping on coupe la liaison entre DS1 et AS1:
@@ -377,17 +377,19 @@ DS1(config-if)#shutdown
 En retournant sur PC5 on remarque que le ping s'interrompt quelques instants avant de reprendre la connectivité: 
 
 ```
-PC5> ping 10.128.10.51 -t
-84 bytes from 10.128.10.51 icmp_seq=4 ttl=64 time=6.279 ms
-84 bytes from 10.128.10.51 icmp_seq=5 ttl=64 time=5.572 ms
-10.128.10.51 icmp_seq=6 timeout
-10.128.10.51 icmp_seq=7 timeout
-10.128.10.51 icmp_seq=8 timeout
-10.128.10.51 icmp_seq=9 timeout
-84 bytes from 10.128.10.51 icmp_seq=10 ttl=64 time=7.993 ms
-84 bytes from 10.128.10.51 icmp_seq=11 ttl=64 time=8.332 ms
+PC1> ping 10.128.10.52 -t
+84 bytes from 10.128.10.52 icmp_seq=1 ttl=64 time=5.930 ms
+84 bytes from 10.128.10.52 icmp_seq=2 ttl=64 time=5.887 ms
+84 bytes from 10.128.10.52 icmp_seq=3 ttl=64 time=6.427 ms
+10.128.10.52 icmp_seq=27 timeout
+10.128.10.52 icmp_seq=28 timeout
+10.128.10.52 icmp_seq=29 timeout
+10.128.10.52 icmp_seq=30 timeout
+10.128.10.52 icmp_seq=31 timeout
+84 bytes from 10.128.10.52 icmp_seq=32 ttl=64 time=7.585 ms
+84 bytes from 10.128.10.52 icmp_seq=33 ttl=64 time=7.883 ms
+84 bytes from 10.128.10.52 icmp_seq=34 ttl=64 time=7.732 ms
 ```
-
 
 
 <a id="monitoring"></a>
