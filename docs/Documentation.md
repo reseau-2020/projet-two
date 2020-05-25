@@ -27,7 +27,7 @@ L'ensemble des opérations se déroule suivant un [planning](https://docs.google
 
 On présente la topologie choisie:
 
-![image](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/Topo_projet.png?raw=true)
+![image](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/Topo_projet.png?raw=true) 
 
 <a id="plan"></a>
 # Plan d'adressage Ipv4/Ipv6 
@@ -47,7 +47,16 @@ L'objectif est de mettre en place un site distant qui communiquere avec l'infras
 
 Dans un premier temps on configure le réseau local de PC9: 
 
-![image](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/_VPN/1.png?raw=true)
+![image](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/_VPN/1.png?raw=true) 
+
+Pour cela on configure le minimum sur R4 à savoir le nom du routeur, l'interface g0/0 en mode DHCP pour attribuer une adresse dynamiquement à PC9, un mot de passe pour le compte utilisé, une clé RSA ainsi que la version 2 de ssh. 
+
+Une fois la configuration sauvegardé sur R4 on vérifie l'attribution dynamique d'une Ipv4 sur PC9: 
+
+```
+PC9> ip dhcp
+DDORA IP 192.168.1.2/24
+```
 
 <a id="infra"></a>
 # Configuration des services d'infrastructures
