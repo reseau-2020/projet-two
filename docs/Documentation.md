@@ -48,9 +48,9 @@ Pour le plan d'adressage cliquez [ici](https://docs.google.com/spreadsheets/d/1z
 | R3      | g0/2      | 10.192.227.2/24 | fe80::3                                                 | Connexion vers R2          | 
 
 
-| R4 | g0/0 | 192.168.1.1 |
-|----|------|-------------|
-|    | g0/1 | 192.168.2.1 | 
+| R4 | g0/0 | 192.168.1.1 | Description |
+|----|------|-------------|-------------|
+| R4 | g0/1 | 192.168.2.1 | LAN pour site distant |
 
 
 | R2-DS1 | G0/2 | 10.128.225.1/24 | fe80::2   |
