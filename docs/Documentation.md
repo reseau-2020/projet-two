@@ -86,9 +86,9 @@ HQ # get system interface physical
                 speed: 1000Mbps (Duplex: full)
 ```
 
-En tapant l'adresse "192.168.122.51" dans notre navigateur Internet, on peut se connecter à l'interface de gestion de HQ, utilisez les identifiants fourni par votre administrateur. 
+En tapant l'adresse **"192.168.122.51"** dans notre navigateur Internet, on peut se connecter à l'interface de gestion de HQ, utilisez les identifiants fourni par votre administrateur. 
 
-Se rendre dans l'onglet VPN>IPsec Wizard et configurer le tunnel tel que:  
+Se rendre dans l'onglet **VPN>IPsec Wizard** et configurer le tunnel tel que:  
 
 ![image](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/_VPN/3.png?raw=true) 
 
@@ -120,7 +120,8 @@ PC9> ping 10.128.10.51
 84 bytes from 10.128.10.51 icmp_seq=2 ttl=58 time=9.590 ms
 ```
 La connectivité est bien établie. 
-Remarque importante: l'adresse Ipv4 définie sur les ports 2 respectifs de HQ et BRANCH est définie dynamiquement par DHCP, il se peut donc qu'elle soit ammenée à changer. 
+
+**Remarque importante**: l'adresse Ipv4 définie sur les ports 2 respectifs de HQ et BRANCH est définie dynamiquement par DHCP, il se peut donc qu'elle soit ammenée à changer !
 
 <a id="infra"></a>
 # Configuration des services d'infrastructures
