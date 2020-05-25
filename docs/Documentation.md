@@ -37,7 +37,7 @@ Pour le plan d'adressage cliquez [ici](https://docs.google.com/spreadsheets/d/1z
 | routeur | interface |       IPv4      |                           IPv6                          |         Description        |
 |:-------:|:---------:|:---------------:|:-------------------------------------------------------:|:--------------------------:|
 | R1      | g0/0      | 10.192.1.1/24   | fe80::1 2001:470:c814:2000::/64 FD00:470:c814:2000::/64 | LAN R1                     |
-| R1      | g0/1      | 10.0.1.1        | fe80::cafe:2/64                                         | Passerelle vers l'internet |
+| R1      | g0/1      | 10.0.1.1        | fe80::cafe:2/64                                         | Connexion vers HQ |
 | R1      | g0/2      | 10.192.225.1/24 | fe80::1                                                 | Connexion vers R2          |
 | R1      | g0/3      | 10.192.226.1/24 | fe80::1                                                 | Connexion vers R3          |
 | R2      | g0/0      | 10.192.33.1/24  | fe80::2 2001:470:c814:2001::/64 FD00:470:c814:2001::/64 | LAN R2                     |
@@ -50,7 +50,7 @@ Pour le plan d'adressage cliquez [ici](https://docs.google.com/spreadsheets/d/1z
 | routeur | interface | IPv4 | Description |
 |----|------|-------------|-------------|
 | R4 | g0/0 | 192.168.1.1 | LAN pour site distant |
-| R4 | g0/1 | 192.168.2.1 | LAN pour site distant |
+| R4 | g0/1 | 192.168.2.1 | Connexion vers BRANCH |
 
 
 | R2-DS1 | G0/2 | 10.128.225.1/24 | fe80::2   |
