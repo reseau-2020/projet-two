@@ -276,6 +276,19 @@ DS2(config)#dhcp pool VLAN40
 DS2(dhcp-config)#dns-server 8.8.8.8
 ```
 
+Pour tester on peut effectuer un "ping" depuis un poste de travail vers "www.google.com": 
+
+```
+PC1> ping www.google.com
+www.google.com resolved to 216.58.209.228
+84 bytes from 216.58.209.228 icmp_seq=1 ttl=52 time=8.252 ms
+84 bytes from 216.58.209.228 icmp_seq=2 ttl=52 time=8.219 ms
+84 bytes from 216.58.209.228 icmp_seq=3 ttl=52 time=9.246 ms
+```
+
+La résolution de nom est bien fonctionelle.
+
+
 <a id="monitoring"></a>
 # Mise en place du monitoring (syslog)
 
