@@ -20,7 +20,7 @@ L'ensemble des opérations se déroule suivant un [planning](https://docs.google
 #### [Mise en place d'un site distant via un PVN IPSEC avec Fortigate](#vpn)
 #### [Configuration des services d'infrastructures](#infra)
 #### [Mise en place du monitoring (syslog)](#monitoring)
-#### [Annexes](#annexes)
+#### [Annexes](#annexe)
 
 <a id="Topo"></a>
 # Topologie
@@ -129,7 +129,7 @@ La connectivité est bien établie.
 <a id="monitoring"></a>
 # Mise en place du monitoring (syslog)
 
-<a id="annexes"></a>
+<a id="annexe"></a>
 # Annexes
 
 [Configuration de R1](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/R1.md) 
