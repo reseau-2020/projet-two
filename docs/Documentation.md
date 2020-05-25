@@ -218,6 +218,9 @@ Pour la dernière étape on configure le sous réseau local et distant, suivant 
 ![image](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/_VPN/5.png?raw=true) 
 
 A présent on configure BRANCH de la même manière en prenant soin d'indiquer les bonnes adresses Ipv4 ainsi que les réseaux locaux correspondants. 
+
+Ne pas oublier d'activer le tunnel, dans l'onglet **Monitor>IPsec Monitor**, faire un clique droit sur la configuration et selectionner **Bring Up**. 
+
 Une fois cette opération effectuée, on peut tester la connectivité entre PC9 et PC1 par exemple: 
 
 ```
