@@ -18,7 +18,7 @@ L'ensemble des opérations se déroule suivant un [planning](https://docs.google
 #### [Configuration de Ansible (playbooks)](#playbooks)
 #### [Configuration d'un accès Internet avec Fortigate](#fortigate)
 #### [Mise en place d'un site distant via un PVN IPSEC avec Fortigate](#vpn)
-#### [Configuration des services d'infrastructures](#infra)
+#### [Configuration des services d'infrastructures(DNS)](#infra)
 #### [Mise en place du monitoring (syslog)](#monitoring)
 #### [Annexes](#annexe)
 
@@ -242,6 +242,39 @@ La connectivité est bien établie.
 
 <a id="infra"></a>
 # Configuration des services d'infrastructures
+
+### DNS
+
+Pour mettre en place la résolution de domaine, on se rend sur DS1 et DS2. Sur chaque pool de VLAN il faut attribuer le serveur DNS (on choisira 8.8.8.8)
+
+```
+DS1(config)#dhcp pool VLAN10
+DS1(dhcp-config)#dns-server 8.8.8.8
+
+DS1(config)#dhcp pool VLAN20
+DS1(dhcp-config)#dns-server 8.8.8.8
+
+DS1(config)#dhcp pool VLAN30
+DS1(dhcp-config)#dns-server 8.8.8.8
+
+DS1(config)#dhcp pool VLAN40
+DS1(dhcp-config)#dns-server 8.8.8.8
+```
+De même sur DS2:
+
+```
+DS2(config)#dhcp pool VLAN10
+DS2(dhcp-config)#dns-server 8.8.8.8
+
+DS2(config)#dhcp pool VLAN20
+DS2(dhcp-config)#dns-server 8.8.8.8
+
+DS2(config)#dhcp pool VLAN30
+DS2(dhcp-config)#dns-server 8.8.8.8
+
+DS2(config)#dhcp pool VLAN40
+DS2(dhcp-config)#dns-server 8.8.8.8
+```
 
 <a id="monitoring"></a>
 # Mise en place du monitoring (syslog)
