@@ -35,7 +35,21 @@ On présente la topologie choisie:
 Pour le plan d'adressage cliquez [ici](https://docs.google.com/spreadsheets/d/1zFA-i-1NdZ8Shb0r4ff5VIl1XpRT2mgDH1xgEIHK-KE/edit?ts=5ec284a0#gid=0).
 
 <a id="playbooks"></a>
-# Configuration de Ansible (playbooks)
+# Configuration de Ansible (playbooks) 
+
+L'ensemble sera lancé depuis un poste "controller" (voir topologie) 
+
+Pour adapter les livres de jeux à une nouvelle configuration il faut intervenir sur les fichiers R1, R2, R3, AS1, AS2, DS1 et DS2 du répertoire  **/playbooks/inventories/ccna/host_var/** 
+
+Il faut prendre soin de mettre à jour les adresses Ipv4 et Ipv6 ainsi que l'interface de sortie du routeur R1 (G0/1), par défaut celle ci est connectée à l'internet et on la laissera en mode DHCP afin d'obtenir dynamiquement une adresse. 
+
+Dans notre cas l'interface G0/1 est attribué statiquement car c'est notre fortigate HQ qui est connecté à l'internet: 
+
+```
+id: GigabitEthernet0/1
+    description: "Connexion to HQ"
+    ipv4_address: 10.0.1.1/24
+```
 
 <a id="fortigate"></a>
 # Configuration d'un accès Internet avec Fortigate
