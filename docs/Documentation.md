@@ -116,7 +116,11 @@ id: GigabitEthernet0/1
 <a id="fortigate"></a>
 # Configuration d'un accès Internet avec Fortigate
 
-Pour cela il faut s'assurer que la sortie de R1 vers HQ ne soit plus configurée en NAT, dans notre cas nous avons définie l'adresse Ipv4 **10.0.1.1** de manière statique sur cette interface. 
+Pour cela il faut s'assurer que la sortie de R1 vers HQ ne soit pas configuré en NAT, dans notre cas nous avons définie l'adresse Ipv4 **10.0.1.1** de manière statique sur cette interface. 
+
+Schéma simplifié de l'infrastructure: 
+
+![image](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/_Wan/4.jpg?raw=true)
 
 Se rendre sur l'interface de HQ, avec la commande "get system interface physical" on récupère l'adresse Ipv4:
 
