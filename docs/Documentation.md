@@ -391,7 +391,7 @@ PC1> ping 10.128.10.52 -t
 84 bytes from 10.128.10.52 icmp_seq=34 ttl=64 time=7.732 ms
 ```
 
-Pour résumé l'opération:
+Pour résumer l'opération:
 
 ![image](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/_tests/5.jpg?raw=true) 
 
