@@ -18,7 +18,7 @@ L'ensemble des opérations se déroule suivant un [planning](https://docs.google
 #### [3.Configuration de Ansible (playbooks)](#playbooks)
 #### [4.Configuration d'un accès Internet avec Fortigate](#fortigate)
 #### [5.Mise en place d'un site distant via un PVN IPSEC avec Fortigate](#vpn)
-#### [6.Configuration des services d'infrastructures (DNS)](#infra)
+#### [6.Configuration des services d'infrastructures (DNS, NTP, SNMP)](#infra)
 #### [7.Tests de fiabilité](#test)
 #### [8.Mise en place du monitoring (syslog)](#monitoring)
 #### [9.Sécurité](#secu)
@@ -301,6 +301,16 @@ www.google.com resolved to 216.58.209.228
 ```
 
 La résolution de nom est bien fonctionelle.
+
+
+### 6.2.NTP
+
+Pour la mise en place de ce service, on se rend sur l'interface de HQ dans l'onglet **System>Settings**: 
+
+![image](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/_tests/6.jpg?raw=true)  
+
+### 6.2.SNMP
+
 
 
 <a id="test"></a>
