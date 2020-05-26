@@ -405,7 +405,7 @@ Pour résumer l'opération:
 ![image](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/_tests/5.jpg?raw=true) 
 
 
-### 7.1.HSRP
+### 7.2.HSRP
 
 HRSP permet de faire la redondance de passerelle et assure la haute disponibilitée de passerelle d’un réseau en cas de problème au niveau de couche 3 (dans notre cas DS1 et DS2).  
 
