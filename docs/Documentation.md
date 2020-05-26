@@ -21,7 +21,8 @@ L'ensemble des opérations se déroule suivant un [planning](https://docs.google
 #### [6.Configuration des services d'infrastructures (DNS)](#infra)
 #### [7.Tests de fiabilité](#test)
 #### [8.Mise en place du monitoring (syslog)](#monitoring)
-#### [9.Annexes](#annexe)
+#### [9.Sécurité](#secu)
+#### [10.Annexes](#annexe)
 
 <a id="Topo"></a>
 # 1.Topologie
@@ -439,8 +440,38 @@ L’adresse ip de switch virtuelle 10.128.20.254 c'est le Gateway de vlan 20
 <a id="monitoring"></a>
 # 8.Mise en place du monitoring (syslog)
 
+
+<a id="secu"></a>
+# 9.Sécurité
+
+### 9.1.Vérifications de base  
+
+Se rendre dans l'onglet **Systeme>Settings** et vérifier :
+
+![image](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/_secu/1.jpg?raw=true)  
+
+Le mode d'inspection **Flow-based** permet d'activer la **NGFW**. Ce qui permettra par la suite d'appliquer facilement des règles de filtrage liés aux policies.
+
+Pour vérifier que l'antivirus soit bien activé se rendre dans l'onglet **Systeme>Feature Visibility** et regarder que la case antivirus soit bien cochée.
+
+Ensuite dans l'onglet **Security Profiles>AntiVirus** vérifier que le mode de scanning soit en **full**.  
+
+### 9.2.Bloquer une URL
+
+Dans notre exemple on va bloquer l'accès à Facebook.
+
+Vérifier dans l'onglet **Systeme>Feature Visibility** que l'option **Web Filter** soit bien cochée.
+
+Se rendre ensuite dans **Security Profiles>Web Filter** et configurer tel que:
+
+![image](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/_secu/2.jpg?raw=true) 
+
+Cliquez sur **Apply** pour valider la modification.  
+
+
+
 <a id="annexe"></a>
-# 9.Annexes
+# 10.Annexes
 
 [Configuration de R1](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/R1.md) 
 
