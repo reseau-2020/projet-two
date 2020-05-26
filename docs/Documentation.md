@@ -405,6 +405,37 @@ Pour résumer l'opération:
 ![image](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/_tests/5.jpg?raw=true) 
 
 
+### 7.1.HSRP
+
+HRSP permet de faire la redondance de passerelle et assure la haute disponibilitée de passerelle d’un réseau en cas de problème au niveau de couche 3 (dans notre cas DS1 et DS2).  
+
+DS1 est root bridge et active hrsp (passerelle par défaut) pour VLAN10 et VLAN30, DS2 root secondaire et standby.  
+
+DS2 est root bridge et active hrsp pour VLAN 20 et 40, DS1 est standby.  
+
+Une ip virtuelle sera associée au groupe, c’est le switch actif qui va répondre sur cette ip. Cette ip virtuelle est celle qui sera utilisée par les hôtes comme ip de default Gateway
+
+Si le switch standby pour un groupe de vlan ne reçoit plus des paquet hello pendant **3*hello time +1 seconde** de la part de switch actif il devient automatiquement active et le passerelle par défaut pour ce groupe.  
+
+
+Sur DS2:
+
+```
+DS2>sh standby brief
+                     P indicates configured to preempt.
+                     |
+Interface   Grp  Pri P State   Active          Standby         Virtual IP
+Vl10        10   100   Standby 10.128.10.252   local           10.128.10.254
+Vl20        20   150   Active  local           10.128.20.252   10.128.20.254
+```
+
+Avec cette commande on voit bien que 10.128.10.252 est l’adresse ip de DS1 qui est active et l’état de switch local qui est DS2 est en standby pour le vlan10.  
+
+L’adresse ip de switch virtuelle 10.128.10.254 c'est le Gateway de vlan 10  
+Pour le groupe 20 (vlan 20) c'est l'adresse local de DS2 qui est active et l'adresse de DS1 (10.128.20.252 ) en standby  
+L’adresse ip de switch virtuelle 10.128.20.254 c'est le Gateway de vlan 20  
+
+
 <a id="monitoring"></a>
 # 8.Mise en place du monitoring (syslog)
 
