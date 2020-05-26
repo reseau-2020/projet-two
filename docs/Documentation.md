@@ -444,7 +444,15 @@ L’adresse ip de switch virtuelle 10.128.20.254 c'est le Gateway de vlan 20
 <a id="secu"></a>
 # 9.Sécurité
 
-### 9.1.Vérifications de base  
+### 9.1.Comptes utilisateurs
+
+Par mesure de sécurité les comptes "root" ne sont utilisés que par certains admins. On définira des comptes nominatifs selon certains critères: 
+
+-Au moins 8 caractères, combinaison de chiffres, lettres et caractères spéciaux.  
+-Les mots de passes expirent tous les 90 jours.  
+
+
+### 9.2.Vérifications de base sur Fortigate
 
 Se rendre dans l'onglet **Systeme>Settings** et vérifier :
 
@@ -456,7 +464,7 @@ Pour vérifier que l'antivirus soit bien activé se rendre dans l'onglet **Syste
 
 Ensuite dans l'onglet **Security Profiles>AntiVirus** vérifier que le mode de scanning soit en **full**.  
 
-### 9.2.Bloquer une URL
+### 9.3.Bloquer une URL sur Fortigate
 
 Dans notre exemple on va bloquer l'accès à Facebook.
 
