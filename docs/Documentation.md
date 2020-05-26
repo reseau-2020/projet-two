@@ -169,7 +169,9 @@ Dans un premier temps on configure le réseau local de PC9:
 
 Pour cela on configure le minimum sur R4 à savoir le nom du routeur, l'interface g0/0 en mode DHCP pour attribuer une adresse dynamiquement à PC9, un mot de passe pour le compte utilisé, une clé RSA ainsi que la version 2 de ssh. 
 
-Voir la configuration de R4 en annexe, [Configuration de R4](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/R4.md)  
+Voir la configuration de R4 en annexe, [Configuration de R4](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/R4.md) 
+
+
 Il faut également définir une route statique entre Branch et le routeur R4, on récupère l'adresse de BRANCH:  
 
 ```
@@ -183,6 +185,7 @@ HQ # get system interface physical
 ```
 
 Se rendre dans l'onglet **Network>Static Routes** et définir la route statique suivant la topologie, ici le port 3: 
+
 
 ![image](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/_Wan/branchStatic.jpg?raw=true) 
 
