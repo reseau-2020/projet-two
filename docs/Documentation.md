@@ -306,7 +306,7 @@ La résolution de nom est bien fonctionelle.
 <a id="test"></a>
 # 7.Tests de fiabilité
 
-### 7.1.Spanning tree
+## 7.1.Spanning tree
 
 Pour rappel DS1 est le root bridge pour vlan 10 et vlan 30 et DS2 est root bridge pour vlan 20 et 40.
 
