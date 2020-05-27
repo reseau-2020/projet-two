@@ -309,6 +309,41 @@ Pour la mise en place de ce service, on se rend sur l'interface de HQ dans l'ong
 
 ![image](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/_tests/6.jpg?raw=true)  
 
+On Prend soin de cocher **Setup device as local NTP server** et d'indiquer l'interface local dans le champs **Listen on Interfaces**  
+
+Se rendre sur HQ en invite de commande pour récupérer le serveur NTP pour la synchronisation des routeurs:
+
+```
+HQ # diag sys ntp status
+synchronized: yes, ntpsync: enabled, server-mode: enabled
+
+ipv4 server(ntp2.fortiguard.com) 208.91.114.23 -- reachable(0xff) S:3 T:3
+        server-version=4, stratum=2
+        reference time is e278e290.ffd36404 -- UTC Wed May 27 14:58:56 2020
+        clock offset is 0.000957 sec, root delay is 0.000137 sec
+        root dispersion is 0.012604 sec, peer dispersion is 40 msec
+```
+
+On utilisera **ntp2.fortiguard.com** comme serveur de synchronisation sur les autres composants, sur R1 par exemple:
+
+```
+R2(config)#ntp server ntp2.fortiguard.com
+R2(config)#do sh ntp status
+Clock is unsynchronized, stratum 3, reference is 208.91.114.23
+nominal freq is 1000.0003 Hz, actual freq is 1000.0003 Hz, precision is 2**17
+ntp uptime is 89300 (1/100 of seconds), resolution is 1000
+reference time is E278E292.156CE153 (14:58:58.083 cest Wed May 27 2020)
+clock offset is 21.8861 msec, root delay is 147.23 msec
+root dispersion is 44.05 msec, peer dispersion is 0.98 msec
+loopfilter state is 'FREQ' (Drift being measured), drift is 0.000000000 s/s
+system poll interval is 64, last update was 19 sec ago.
+```
+
+On remarque que la reference est bien la bonne **208.91.114.23** <=> **ntp2.fortiguard.com**.
+
+Il suffit de reproduire la commande **ntp server ntp2.fortiguard.com** sur chaques élément de la topologie.
+
+
 ### 6.2.SNMP
 
 
@@ -449,6 +484,160 @@ L’adresse ip de switch virtuelle 10.128.20.254 c'est le Gateway de vlan 20
 
 <a id="monitoring"></a>
 # 8.Mise en place du monitoring (syslog)
+
+Schéma simplifié de l'infrastructure: 
+
+![image](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/_monitoring/8.jpg?raw=true)
+
+### 8.1.Configuration du serveur  
+
+On prendra une machine Centos-7 en tant que serveur syslog.  
+Pour commencer on installe **rsyslog**: 
+
+```
+[root@syslogserver ~]# yum -y install rsyslog
+```
+
+On édite le fichier suivant:
+
+```
+[root@syslogserver ~]# vi /etc/rsyslog.conf
+
+# rsyslog configuration file
+
+# For more information see /usr/share/doc/rsyslog-*/rsyslog_conf.html
+# If you experience problems, see http://www.rsyslog.com/doc/troubleshoot.html
+
+#### MODULES ####
+
+# The imjournal module bellow is now used as a message source instead of imuxsocc
+k.
+$ModLoad imuxsock # provides support for local system logging (e.g. via logger cc
+ommand)
+$ModLoad imjournal # provides access to the systemd journal
+#$ModLoad imklog # reads kernel messages (the same are read from journald)
+#$ModLoad immark  # provides --MARK-- message capability
+
+# Provides UDP syslog reception
+$ModLoad imudp
+$UDPServerRun 514
+
+# Provides TCP syslog reception
+$ModLoad imtcp
+$InputTCPServerRun 514
+```
+
+On prend soin de décommenter la partie **UDP et TCP syslog reception**.
+
+
+### 8.2.Configuration du client (poste de travail)
+
+Cette étape est à reproduire sur chaque poste de travail, on prend ici l'exemple de PC5:
+
+On installe le package rsyslog:
+
+```
+[root@PC5 ~]# yum -y install rsyslog
+```
+
+En mode édition:
+ 
+```
+vi /etc/rsyslog.conf
+```
+
+```
+### Per-Host Templates for Remote Systems ###
+$template TmplAuthpriv, "/var/log/remote/auth/%HOSTNAME%/%PROGRAMNAME:::secpath--
+replace%.log"
+$template TmplMsg, "/var/log/remote/msg/%HOSTNAME%/%PROGRAMNAME:::secpath-replacc
+e%.log"
+
+# Provides UDP syslog reception
+#$ModLoad imudp
+#$UDPServerRun 514
+
+# Provides TCP syslog reception
+$ModLoad imtcp
+# Adding this ruleset to process remote messages
+$RuleSet remote1
+authpriv.*   ?TmplAuthpriv
+*.info;mail.none;authpriv.none;cron.none   ?TmplMsg
+$RuleSet RSYSLOG_DefaultRuleset   #End the rule set by switching back to the deff
+ault rule set
+$InputTCPServerBindRuleset remote1  #Define a new input and bind it to the "remoo
+te1" rule set
+$InputTCPServerRun 10514
+
+*.* @10.192.1.101
+```
+
+Il est possible de copier/coller ces lignes, il faut par contre adapter la dernière ligne **@10.192.1.101**, cette ci est l'adresse IPv4 du serveur configuré en 8.1.
+
+A présent **toutes** les traces syslog seront rédirigées vers le serveur. 
+
+### 8.3.Configuration du client (élément CISCO)
+
+On prend l'exemple du routeur R1 dans notre topologie, en mode de configuration:
+
+```
+R1(config)#logging trap debugging
+```
+
+Ici la sévérité est définie sur **debugging** c'est le niveau le plus verbeux. Pour voir les autres niveau de détails:
+
+```
+R1(config)#logging trap ?
+<0-7> Logging severity level
+alerts Immediate action needed (severity=1)
+critical Critical conditions (severity=2)
+debugging Debugging messages (severity=7)
+emergencies System is unusable (severity=0)
+errors Error conditions (severity=3)
+informational Informational messages (severity=6)
+notifications Normal but significant conditions (severity=5)
+warnings Warning conditions (severity=4)
+```
+
+On active la redirection des logs vers notre serveur (ici 10.192.1.101)
+
+```
+R1(config)#logging 10.192.1.101
+```
+
+On peut vérifier la configuration:
+
+```
+R1#show logging
+
+Trap logging: level debugging, 111 message lines logged
+        Logging to 10.192.1.101
+```
+
+### 8.4.Vérifications
+
+On laisse le fichier de réception des logs ouvert sur le serveur:
+
+```
+[root@syslogserver ~]# tail -f /var/log/messages
+```
+
+Par exemple on se connecte sur R1 et on coupe volontairement l'interface G0/7:
+
+```
+R1(config)#int g0/7
+R1(config-if)#shutdown
+```
+
+Pendant ce temps sur le serveur syslog:
+
+```
+May 27 15:46:40 gateway 112: May 27 13:46:39.566: %LINK-5-CHANGED: Interface GigabitEthernet0/7, changed state                                                                                                      to administratively down
+May 27 15:46:40 gateway 113: May 27 13:46:40.566: %LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEther                                                                                                     net0/7, changed state to down
+
+```
+
+On remarque que le routeur R1 a bien envoyé ces logs au serveur.
 
 
 <a id="secu"></a>
