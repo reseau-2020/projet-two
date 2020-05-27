@@ -529,6 +529,11 @@ $InputTCPServerRun 514
 
 On prend soin de décommenter la partie **UDP et TCP syslog reception**.
 
+**IMPORTANT**: ne pas oublier de redémarrer le service pour la prise en compte des changements:
+
+```
+systemctl restart rsyslog
+```
 
 ### 8.2.Configuration du client (poste de travail)
 
@@ -574,6 +579,12 @@ $InputTCPServerRun 10514
 
 Il est possible de copier/coller ces lignes, il faut par contre adapter la dernière ligne **@10.192.1.101**, cette ci est l'adresse IPv4 du serveur configuré en 8.1.
 
+**IMPORTANT**: ne pas oublier de redémarrer le service pour la prise en compte des changements:
+
+```
+systemctl restart rsyslog
+```
+
 A présent **toutes** les traces syslog seront rédirigées vers le serveur. 
 
 ### 8.3.Configuration du client (élément CISCO)
@@ -614,7 +625,14 @@ Trap logging: level debugging, 111 message lines logged
         Logging to 10.192.1.101
 ```
 
-### 8.4.Vérifications
+### 8.4.Configuration du client (Fortigate)
+
+Se rendre dans l'interface graphique de HQ dans l'onglet **Log & Report>Log Settings**, on active le logging syslog et on prend soin d'indiquer notre serveur, ici **10.192.1.101**:
+
+![image](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/_monitoring/7.jpg?raw=true)  
+
+
+### 8.5.Vérifications
 
 On laisse le fichier de réception des logs ouvert sur le serveur:
 
@@ -632,9 +650,8 @@ R1(config-if)#shutdown
 Pendant ce temps sur le serveur syslog:
 
 ```
-May 27 15:46:40 gateway 112: May 27 13:46:39.566: %LINK-5-CHANGED: Interface GigabitEthernet0/7, changed state                                                                                                      to administratively down
-May 27 15:46:40 gateway 113: May 27 13:46:40.566: %LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEther                                                                                                     net0/7, changed state to down
-
+May 27 15:46:40 gateway 112: May 27 13:46:39.566: %LINK-5-CHANGED: Interface GigabitEthernet0/7, changed state to administratively down
+May 27 15:46:40 gateway 113: May 27 13:46:40.566: %LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEther net0/7, changed state to down
 ```
 
 On remarque que le routeur R1 a bien envoyé ces logs au serveur.
