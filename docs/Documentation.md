@@ -631,6 +631,7 @@ Se rendre dans l'interface graphique de HQ dans l'onglet **Log & Report>Log Sett
 
 ![image](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/_monitoring/7.jpg?raw=true)  
 
+On remarque le nombre de choix possible à envoyer au serveur.
 
 ### 8.5.Vérifications
 
