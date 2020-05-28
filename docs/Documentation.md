@@ -962,7 +962,7 @@ Ainsi les logs seront envoyées sur le serveur dans le répertoire /syslogBackup
 
 ### 9.7.SNMP
 
-
+A FAIRE
 
 Vérification sur DS1:
 
