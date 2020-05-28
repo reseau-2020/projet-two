@@ -92,7 +92,8 @@ interfaces:
       pri: 255
     ipv6_addresses:
       - 'FE80::D:3'
-      - 'FD00:1AB:1A3:10::2/64'
+      - '2001:470:c814:2A0A::3/64'
+      - 'FD00:470:c814:2A0A::3/64'
     eigrp6:
     ospfv3:
       area: 0
@@ -110,7 +111,8 @@ interfaces:
       pri: 255
     ipv6_addresses:
       - 'FE80::D:3'
-      - 'FD00:1AB:1A3:20::2/64'
+      - '2001:470:c814:2A14::3/64'
+      - 'FD00:470:c814:2A14::3/64'
     eigrp6:
     ospfv3:
       area: 0
@@ -128,7 +130,8 @@ interfaces:
       pri: 255
     ipv6_addresses:
       - 'FE80::D:3'
-      - 'FD00:1AB:1A3:30::2/64'
+      - '2001:470:c814:2AAE::3/64'
+      - 'FD00:470:c814:2AAE::3/64'
     eigrp6:
     ospfv3:
       area: 0
@@ -146,7 +149,8 @@ interfaces:
       pri: 255
     ipv6_addresses:
       - 'FE80::D:3'
-      - 'FD00:1AB:1A3:40::2/64'
+      - '2001:470:c814:2A28::3/64'
+      - 'FD00:470:c814:2A28::3/64'
     eigrp6:
     ospfv3:
       area: 0
