@@ -580,6 +580,8 @@ $InputTCPServerRun 10514
 
 Il est possible de copier/coller ces lignes, il faut par contre adapter la dernière ligne **@10.192.1.101** en indiquant les ports 514 t 1514 (UDP et TCP), celle ci est l'adresse IPv4 du serveur configuré en 8.1.
 
+Avec la configuration *.* avant l'adresse IP du serveur, l'intégralité des messages seront envoyés, on peut paramétrer cela différement, voir la partie **8.6.Configuration avancée**  
+
 **IMPORTANT**: ne pas oublier de redémarrer le service pour la prise en compte des changements:
 
 ```
@@ -596,7 +598,7 @@ On prend l'exemple du routeur R1 dans notre topologie, en mode de configuration:
 R1(config)#logging trap debugging
 ```
 
-Ici la sévérité est définie sur **debugging** c'est le niveau le plus verbeux. Pour voir les autres niveau de détails:
+Ici la gravité est définie sur **debugging** c'est le niveau le plus verbeux. Pour voir les autres niveau de détails:
 
 ```
 R1(config)#logging trap ?
