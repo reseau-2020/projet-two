@@ -164,9 +164,124 @@ Pour la configuration complète de chaque éléments de la topologie, se rendre 
 
 
 <a id="ipv6"></a>
-#### [4.Configuration IPv6](#ipv6)  
+# 4.Configuration IPv6
 
+Pour la configuration de IPv6 on fera cela manuellement, bien que cela soit possible via ansible.
 
+Dans HQ, se rendre dans l'onglet **IPv6 Policy** et configurer l'interface correspondante:
+
+![image](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/_secu/3.png?raw=true)
+
+On ajoute également les routes statiques correspondantes:
+
+![image](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/_secu/4.png?raw=true)
+
+On se rend maintenant sur le routeur R1:
+
+R1 reçoit une adresse IPv6 link-local sur son interface g0/1:
+
+```
+R1(config)#interface g0/1
+R1(config-if)#ipv6 add autoconfig
+```
+
+Vérification:
+
+```
+R1#sh ipv6 interface brief
+
+GigabitEthernet0/1     [up/up]
+    FE80::E3F:C7FF:FE04:5001
+    2001:470:C814:2FFF::2
+```
+
+Sur l’interface g0/1 de R1 on configure une adresse IPv6 publique :
+
+```
+R1(config)#interface g0/1
+R1(config-if)#ipv6 add 2001:470:c814:2fff::2/64
+```
+
+On peut à présent tester la connectivité entre R1 et HQ via un ping:
+
+```
+R1#ping 2001:470:c814:2fff::1
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 2001:470:C814:2FFF::1, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 1/1/4 ms
+```
+
+La connexion est bien établie.
+
+On retourne maintenant sur HQ les adresses IPv6 sur les ports 2 et 3:
+
+```
+HQ # diagnose ipv6 address list
+
+dev=4 devname=port2 flag=P scope=0 prefix=64 addr=2001:470:c814::22 preferred=4294967295 valid=4294967295
+dev=4 devname=port2 flag=P scope=253 prefix=64 addr=fe80::e3f:c7ff:fe01:5901 preferred=4294967295 valid=4294967295
+dev=5 devname=port3 flag=P scope=0 prefix=64 addr=2001:470:c814:2fff::1 preferred=4294967295 valid=4294967295
+dev=5 devname=port3 flag=P scope=253 prefix=64 addr=fe80::e3f:c7ff:fe01:5902 preferred=4294967295 valid=4294967295
+```
+
+On notera les adresses IPv6 des ports 2 et 3.
+
+On peut également tester la connexion à l'internet depuis HQ, avec un ping vers un DNS de google (2001:4860:4860::8888 équivalente à 8.8.8.8 en IPv4)
+
+```
+HQ # execute ping6 2001:4860:4860::8888
+PING 2001:4860:4860::8888(2001:4860:4860::8888) 56 data bytes
+64 bytes from 2001:4860:4860::8888: icmp_seq=1 ttl=57 time=4.97 ms
+64 bytes from 2001:4860:4860::8888: icmp_seq=2 ttl=57 time=3.90 ms
+64 bytes from 2001:4860:4860::8888: icmp_seq=3 ttl=57 time=4.11 ms
+64 bytes from 2001:4860:4860::8888: icmp_seq=4 ttl=57 time=4.42 ms
+```
+
+A présent on essai la connectivité de R1 vers l'internet, pour cela on retourne sur R1 et on détermine une route statique sur l'interface g0/1:
+
+```
+R1(config)#ipv6 route 2000::/3 GigabitEthernet0/1 fe80::e3f:c7ff:fe01:5902
+```
+
+On test le ping vers un DNS de google:
+
+```
+R1#ping 2001:4860:4860::8888
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 2001:4860:4860::8888, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 3/4/9 ms
+```
+
+On vérifie les protocoles configurés en IPv6 sur R1:
+
+```
+R1#sh ipv6 protocols
+IPv6 Routing Protocol is "connected"
+IPv6 Routing Protocol is "application"
+IPv6 Routing Protocol is "ND"
+IPv6 Routing Protocol is "static"
+IPv6 Routing Protocol is "eigrp 1"
+EIGRP-IPv6 Protocol for AS(1)
+  Metric weight K1=1, K2=0, K3=1, K4=0, K5=0
+  Soft SIA disabled
+  NSF-aware route hold timer is 240
+  Router-ID: 1.1.1.1
+  Topology : 0 (base)
+    Active Timer: 3 min
+    Distance: internal 90 external 170
+    Maximum path: 16
+    Maximum hopcount 100
+    Maximum metric variance 1
+
+  Interfaces:
+    GigabitEthernet0/2
+    GigabitEthernet0/3
+    GigabitEthernet0/0 (passive)
+  Redistribution:
+    Redistributing protocol static
+```
 
 
 <a id="fortigate"></a>
