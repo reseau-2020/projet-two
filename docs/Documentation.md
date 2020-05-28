@@ -34,9 +34,7 @@ On présente la topologie choisie:
 <a id="plan"></a>
 # 2.Plan d'adressage Ipv4/Ipv6 
 
-Pour le plan d'adressage cliquez [ici](https://docs.google.com/spreadsheets/d/1zFA-i-1NdZ8Shb0r4ff5VIl1XpRT2mgDH1xgEIHK-KE/edit?ts=5ec284a0#gid=0).
-
-Routeur R1, R2 et R3
+### Routeur R1, R2 et R3
 
 | Routeur | Interface |       IPv4      |                            IPv6                           |    Description    |
 |:-------:|:---------:|:---------------:|:---------------------------------------------------------:|:-----------------:|
@@ -52,7 +50,7 @@ Routeur R1, R2 et R3
 | R3      | g0/2      | 10.192.227.2/24 | fe80::3                                                   | Connexion vers R2 |
 
 
-Routeur R4 pour le site distant
+### Routeur R4 pour le site distant
 
 | routeur | interface | IPv4 | Description |
 |----|------|-------------|-------------|
@@ -80,7 +78,7 @@ Routeur R4 pour le site distant
 |              | g3/0      | 10.128.241.2/24 | FE80::D:3 | 
 
 
-Switchbloc
+### Switchbloc
 
 
 | Périphérique |  VLAN  |       IPv4       |                             IPv6                            |
@@ -94,7 +92,7 @@ Switchbloc
 | DS2          | VLAN30 | 10.128.30.253/24 | FE80::D:3 2001:470:c814:2AAE::3/64 FD00:470:c814:2AAE::3/64 |
 | DS2          | VLAN40 | 10.128.40.253/24 | FE80::D:3 2001:470:c814:2A28::3/64 FD00:470:c814:2A28::3/64 |
 
-HSRP
+### HSRP
 
 | Périphérique |  VLAN  |   IPv4 virtuel   |                            IPv6                           |
 |:------------:|:------:|:----------------:|:---------------------------------------------------------:|
@@ -108,7 +106,7 @@ HSRP
 | DS2          | VLAN40 | 10.128.40.254/24 | FE80::D:2 2001:470:c814:2A28::/64 FD00:470:c814:2A28::/64 |
 
 
-FORTIGATE HQ
+### FORTIGATE HQ
 
 | Périphérique |   Interface  |    IPv4   |                                 IPv6                                 |
 |:------------:|:------------:|:---------:|:--------------------------------------------------------------------:|
