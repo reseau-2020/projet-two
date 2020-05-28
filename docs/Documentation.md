@@ -133,6 +133,37 @@ id: GigabitEthernet0/1
     ipv4_address: 10.0.1.1/24
 ```
 
+Selon notre topologie, ces fichiers permettent la configuration en IPv4:
+
+[Configuration de R1](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/R1.md) 
+
+[Configuration de R2](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/R2.md) 
+
+[Configuration de R3](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/R3.md) 
+
+[Configuration de R4](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/R4.md) 
+
+[Configuration de AS1](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/AS1.md) 
+
+[Configuration de AS2](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/AS2.md) 
+
+[Configuration de DS1](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/DS1.md) 
+
+[Configuration de DS2](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/DS2.md) 
+
+
+Une fois les fichiers mis à jour il suffit de lancer cette commande depuis le controler:
+
+```
+[root@controller]# ansible-playbook /ansible-ccna-lab/playbooks/ccna.yml
+```
+
+Laisser le livre de jeu dérouler la configuration...
+
+
+Pour la configuration complète de chaque éléments de la topologie, se rendre dans la partie [10.Annexes](#annexe).
+
+
 <a id="fortigate"></a>
 # 4.Configuration d'un accès Internet avec Fortigate
 
