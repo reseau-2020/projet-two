@@ -784,6 +784,8 @@ Cliquez sur **Apply** pour valider la modification.
 <a id="annexe"></a>
 # 10.Annexes
 
+[Configuration complète de R1](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/R1_full.md)
+
 [Configuration de R4](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/R4.md) 
 
 
