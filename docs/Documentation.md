@@ -524,10 +524,10 @@ $UDPServerRun 514
 
 # Provides TCP syslog reception
 $ModLoad imtcp
-$InputTCPServerRun 514
+$InputTCPServerRun 1514
 ```
 
-On prend soin de décommenter la partie **UDP et TCP syslog reception**.
+On prend soin de décommenter la partie **UDP et TCP syslog reception** et de modifier le port pour la partie TCP.  
 
 **IMPORTANT**: ne pas oublier de redémarrer le service pour la prise en compte des changements:
 
@@ -574,10 +574,11 @@ $InputTCPServerBindRuleset remote1  #Define a new input and bind it to the "remo
 te1" rule set
 $InputTCPServerRun 10514
 
-*.* @10.192.1.101
+*.* @10.192.1.101:514
+*.* @10.192.1.101:1514
 ```
 
-Il est possible de copier/coller ces lignes, il faut par contre adapter la dernière ligne **@10.192.1.101**, cette ci est l'adresse IPv4 du serveur configuré en 8.1.
+Il est possible de copier/coller ces lignes, il faut par contre adapter la dernière ligne **@10.192.1.101** en indiquant les ports 514 t 1514 (UDP et TCP), celle ci est l'adresse IPv4 du serveur configuré en 8.1.
 
 **IMPORTANT**: ne pas oublier de redémarrer le service pour la prise en compte des changements:
 
