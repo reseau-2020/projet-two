@@ -536,17 +536,18 @@ DS1(config)#do sh spanning-tree vlan 10
 VLAN0010
   Spanning tree enabled protocol rstp
   Root ID    Priority    24586
-             Address     0cad.663d.1100
+             Address     0c3f.c7e0.d100
              This bridge is the root
              Hello Time   2 sec  Max Age 20 sec  Forward Delay 15 sec
 
   Bridge ID  Priority    24586  (priority 24576 sys-id-ext 10)
-             Address     0cad.663d.1100
+             Address     0c3f.c7e0.d100
              Hello Time   2 sec  Max Age 20 sec  Forward Delay 15 sec
              Aging Time  300 sec
 
 Interface           Role Sts Cost      Prio.Nbr Type
 ------------------- ---- --- --------- -------- --------------------------------
+Po1                 Desg FWD 3         128.65   P2p
 Po3                 Desg FWD 3         128.66   P2p
 Po5                 Desg FWD 3         128.67   P2p
 ```
