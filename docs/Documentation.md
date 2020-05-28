@@ -19,9 +19,9 @@ L'ensemble des opérations se déroule suivant un [planning](https://docs.google
 #### [4.Configuration IPv6](#ipv6)
 #### [5.Configuration d'un accès Internet avec Fortigate](#fortigate)
 #### [6.Mise en place d'un site distant via un PVN IPSEC avec Fortigate](#vpn)
-#### [7.Configuration des services d'infrastructures (DNS, NTP, SNMP)](#infra)
+#### [7.Configuration des services d'infrastructures (DNS, NTP](#infra)
 #### [8.Tests de fiabilité et de sécurité](#test)
-#### [9.Mise en place du monitoring (syslog)](#monitoring)
+#### [9.Mise en place du monitoring (syslog, SNMP)](#monitoring)
 #### [10.Sécurité](#secu)
 #### [11.Annexes](#annexe)
 
@@ -513,10 +513,6 @@ On remarque que la reference est bien la bonne **208.91.114.23** <=> **ntp2.fort
 Il suffit de reproduire la commande **ntp server ntp2.fortiguard.com** sur chaques élément de la topologie.
 
 
-### 7.3.SNMP
-
-A FAIRE
-
 <a id="test"></a>
 # 8.Tests de fiabilité et de sécurité
 
@@ -752,7 +748,7 @@ On remarque que les ports 80, 8080, 22 et 53 sont ouvert. Certains représentent
 
 
 <a id="monitoring"></a>
-# 9.Mise en place du monitoring (syslog)
+# 9.Mise en place du monitoring (syslog, SNMP)
 
 Schéma simplifié de l'infrastructure: 
 
@@ -962,6 +958,12 @@ Et modifier la ligne tel que:
 ```
 
 Ainsi les logs seront envoyées sur le serveur dans le répertoire /syslogBackup et sous le nom PC1, il sera plus facile d'identifier l'origine des messages.
+
+
+### 9.7.SNMP
+
+
+ICI A FAIRE
 
 
 <a id="secu"></a>
