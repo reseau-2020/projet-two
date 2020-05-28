@@ -19,7 +19,7 @@ L'ensemble des opérations se déroule suivant un [planning](https://docs.google
 #### [4.Configuration d'un accès Internet avec Fortigate](#fortigate)
 #### [5.Mise en place d'un site distant via un PVN IPSEC avec Fortigate](#vpn)
 #### [6.Configuration des services d'infrastructures (DNS, NTP, SNMP)](#infra)
-#### [7.Tests de fiabilité](#test)
+#### [7.Tests de fiabilité et de sécurité](#test)
 #### [8.Mise en place du monitoring (syslog)](#monitoring)
 #### [9.Sécurité](#secu)
 #### [10.Annexes](#annexe)
