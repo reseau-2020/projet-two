@@ -963,8 +963,24 @@ Ainsi les logs seront envoyées sur le serveur dans le répertoire /syslogBackup
 ### 9.7.SNMP
 
 
-ICI A FAIRE
 
+Vérification sur DS1:
+
+
+```
+DS1#sh standby brief
+                     P indicates configured to preempt.
+                     |
+Interface   Grp  Pri P State   Active          Standby         Virtual IP
+Vl10        10   150   Active  local           10.128.10.253   10.128.10.254
+Vl10        16   150   Active  local           FE80::D:3       FE80::D:1
+Vl20        20   100   Active  local           10.128.20.253   10.128.20.254
+Vl20        26   100   Active  local           FE80::D:3       FE80::D:1
+Vl30        30   150   Active  local           10.128.30.253   10.128.30.254
+Vl30        36   150   Active  local           FE80::D:3       FE80::D:1
+Vl40        40   100   Active  local           10.128.40.253   10.128.40.254
+Vl40        46   100   Active  local           FE80::D:3       FE80::D:1
+```
 
 <a id="secu"></a>
 # 10.Sécurité
