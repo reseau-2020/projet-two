@@ -367,7 +367,7 @@ Il suffit de reproduire la commande **ntp server ntp2.fortiguard.com** sur chaqu
 
 
 <a id="test"></a>
-# 7.Tests de fiabilité
+# 7.Tests de fiabilité et de sécurité
 
 ### 7.1.Spanning tree
 
@@ -498,6 +498,10 @@ Avec cette commande on voit bien que 10.128.10.252 est l’adresse ip de DS1 qui
 L’adresse ip de switch virtuelle 10.128.10.254 c'est le Gateway de vlan 10  
 Pour le groupe 20 (vlan 20) c'est l'adresse local de DS2 qui est active et l'adresse de DS1 (10.128.20.252 ) en standby  
 L’adresse ip de switch virtuelle 10.128.20.254 c'est le Gateway de vlan 20  
+
+
+### 7.3.Tests de sécurité avec un poste "pirate"
+
 
 
 <a id="monitoring"></a>
@@ -747,8 +751,6 @@ Se rendre ensuite dans **Security Profiles>Web Filter** et configurer tel que:
 ![image](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/_secu/2.jpg?raw=true) 
 
 Cliquez sur **Apply** pour valider la modification.  
-
-
 
 <a id="annexe"></a>
 # 10.Annexes
