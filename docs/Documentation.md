@@ -57,6 +57,8 @@ On présente la topologie choisie:
 | R4 | g0/0 | 192.168.1.1 | LAN pour site distant |
 | R4 | g0/1 | 192.168.2.1 | Connexion vers BRANCH |
 
+### Liaisons entre R2, R3 et DS1, DS2 
+
 
 | Périphérique | Interface |       IPv4      |    IPv6   |
 |:------------:|:---------:|:---------------:|:---------:|
