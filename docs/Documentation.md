@@ -15,14 +15,15 @@ L'ensemble des opérations se déroule suivant un [planning](https://docs.google
 
 #### [1.Topologie](#Topo)
 #### [2.Plan d'adressage Ipv4/Ipv6](#plan)
-#### [3.Configuration de Ansible (playbooks)](#playbooks)
-#### [4.Configuration d'un accès Internet avec Fortigate](#fortigate)
-#### [5.Mise en place d'un site distant via un PVN IPSEC avec Fortigate](#vpn)
-#### [6.Configuration des services d'infrastructures (DNS, NTP, SNMP)](#infra)
-#### [7.Tests de fiabilité et de sécurité](#test)
-#### [8.Mise en place du monitoring (syslog)](#monitoring)
-#### [9.Sécurité](#secu)
-#### [10.Annexes](#annexe)
+#### [3.Configuration de Ansible IPv4 (playbooks)](#playbooks)
+#### [4.Configuration IPv6](#ipv6)
+#### [5.Configuration d'un accès Internet avec Fortigate](#fortigate)
+#### [6.Mise en place d'un site distant via un PVN IPSEC avec Fortigate](#vpn)
+#### [7.Configuration des services d'infrastructures (DNS, NTP, SNMP)](#infra)
+#### [8.Tests de fiabilité et de sécurité](#test)
+#### [9.Mise en place du monitoring (syslog)](#monitoring)
+#### [10.Sécurité](#secu)
+#### [11.Annexes](#annexe)
 
 <a id="Topo"></a>
 # 1.Topologie
@@ -162,8 +163,14 @@ Laisser le livre de jeu dérouler la configuration...
 Pour la configuration complète de chaque éléments de la topologie, se rendre dans la partie [10.Annexes](#annexe).
 
 
+<a id="ipv6"></a>
+#### [4.Configuration IPv6](#ipv6)  
+
+
+
+
 <a id="fortigate"></a>
-# 4.Configuration d'un accès Internet avec Fortigate
+# 5.Configuration d'un accès Internet avec Fortigate
 
 Pour cela il faut s'assurer que la sortie de R1 vers HQ ne soit pas configuré en NAT, dans notre cas nous avons définie l'adresse Ipv4 **10.0.1.1** de manière statique sur cette interface. 
 
@@ -207,7 +214,7 @@ PC1> ping 1.1.1.1
 
 
 <a id="vpn"></a>
-# 5.Mise en place d'un site distant via un PVN IPSEC avec Fortigate
+# 6.Mise en place d'un site distant via un PVN IPSEC avec Fortigate
 
 L'objectif est de mettre en place un site distant qui communiquere avec l'infrastructure de base à travers un tunnel IPSEC. Selon la topologie, PC9 sera capable de communiquer avec PC1 à PC8 et inversement. 
 
@@ -302,9 +309,9 @@ La connectivité est bien établie.
 **Remarque importante**: l'adresse Ipv4 définie sur les ports 2 respectifs de HQ et BRANCH est définie dynamiquement par DHCP, il se peut donc qu'elle soit ammenée à changer !
 
 <a id="infra"></a>
-# 6.Configuration des services d'infrastructures
+# 7.Configuration des services d'infrastructures
 
-### 6.1.Service de résolution de domaine (DNS)
+### 7.1.Service de résolution de domaine (DNS)
 
 Pour mettre en place la résolution de domaine, on se rend sur DS1 et DS2. Sur chaque pool de VLAN il faut attribuer le serveur DNS (on choisira 8.8.8.8)
 
@@ -350,7 +357,7 @@ www.google.com resolved to 216.58.209.228
 La résolution de nom est bien fonctionelle.
 
 
-### 6.2.NTP
+### 7.2.NTP
 
 Pour la mise en place de ce service, on se rend sur l'interface de HQ dans l'onglet **System>Settings**: 
 
@@ -391,14 +398,14 @@ On remarque que la reference est bien la bonne **208.91.114.23** <=> **ntp2.fort
 Il suffit de reproduire la commande **ntp server ntp2.fortiguard.com** sur chaques élément de la topologie.
 
 
-### 6.2.SNMP
+### 7.3.SNMP
 
 
 
 <a id="test"></a>
-# 7.Tests de fiabilité et de sécurité
+# 8.Tests de fiabilité et de sécurité
 
-### 7.1.Spanning tree
+### 8.1.Spanning tree
 
 Pour rappel DS1 est le root bridge pour vlan 10 et vlan 30 et DS2 est root bridge pour vlan 20 et 40.
 
@@ -498,7 +505,7 @@ Pour résumer l'opération:
 ![image](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/_tests/5.jpg?raw=true) 
 
 
-### 7.2.HSRP
+### 8.2.HSRP
 
 HRSP permet de faire la redondance de passerelle et assure la haute disponibilitée de passerelle d’un réseau en cas de problème au niveau de couche 3 (dans notre cas DS1 et DS2).  
 
@@ -529,18 +536,18 @@ Pour le groupe 20 (vlan 20) c'est l'adresse local de DS2 qui est active et l'adr
 L’adresse ip de switch virtuelle 10.128.20.254 c'est le Gateway de vlan 20  
 
 
-### 7.3.Tests de sécurité avec un poste "pirate"
+### 8.3.Tests de sécurité avec un poste "pirate"
 
 
 
 <a id="monitoring"></a>
-# 8.Mise en place du monitoring (syslog)
+# 9.Mise en place du monitoring (syslog)
 
 Schéma simplifié de l'infrastructure: 
 
 ![image](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/_monitoring/8.jpg?raw=true)
 
-### 8.1.Configuration du serveur  
+### 9.1.Configuration du serveur  
 
 On prendra une machine Centos-7 en tant que serveur syslog.  
 Pour commencer on installe **rsyslog**: 
@@ -586,7 +593,7 @@ On prend soin de décommenter la partie **UDP et TCP syslog reception** et de mo
 systemctl restart rsyslog
 ```
 
-### 8.2.Configuration du client (poste de travail)
+### 9.2.Configuration du client (poste de travail)
 
 Cette étape est à reproduire sur chaque poste de travail, on prend ici l'exemple de PC5:
 
@@ -641,7 +648,7 @@ systemctl restart rsyslog
 
 A présent **toutes** les traces syslog seront rédirigées vers le serveur. 
 
-### 8.3.Configuration du client (élément CISCO)
+### 9.3.Configuration du client (élément CISCO)
 
 On prend l'exemple du routeur R1 dans notre topologie, en mode de configuration:
 
@@ -679,7 +686,7 @@ Trap logging: level debugging, 111 message lines logged
         Logging to 10.192.1.101
 ```
 
-### 8.4.Configuration du client (Fortigate)
+### 9.4.Configuration du client (Fortigate)
 
 Se rendre dans l'interface graphique de HQ dans l'onglet **Log & Report>Log Settings**, on active le logging syslog et on prend soin d'indiquer notre serveur, ici **10.192.1.101**:
 
@@ -687,7 +694,7 @@ Se rendre dans l'interface graphique de HQ dans l'onglet **Log & Report>Log Sett
 
 On remarque le nombre de choix possible à envoyer au serveur.
 
-### 8.5.Vérifications
+### 9.5.Vérifications
 
 On laisse le fichier de réception des logs ouvert sur le serveur:
 
@@ -712,7 +719,7 @@ May 27 15:46:40 gateway 113: May 27 13:46:40.566: %LINEPROTO-5-UPDOWN: Line prot
 On remarque que le routeur R1 a bien envoyé ces logs au serveur.
 
 
-### 8.6.Configuration avancée
+### 9.6.Configuration avancée
 
 Mise en place d'une rotation de log avec logrotate. Afin d'éviter d'avoir un seul fichier avec toutes les logs dedans, on configure logrotate sur le serveur:
 
@@ -747,9 +754,9 @@ Ainsi les logs seront envoyées sur le serveur dans le répertoire /syslogBackup
 
 
 <a id="secu"></a>
-# 9.Sécurité
+# 10.Sécurité
 
-### 9.1.Comptes utilisateurs
+### 10.1.Comptes utilisateurs
 
 Par mesure de sécurité les comptes "root" ne sont utilisés que par certains admins. On définira des comptes nominatifs selon certains critères: 
 
@@ -757,7 +764,7 @@ Par mesure de sécurité les comptes "root" ne sont utilisés que par certains a
 -Les mots de passes expirent tous les 90 jours.  
 
 
-### 9.2.Vérifications de base sur Fortigate
+### 10.2.Vérifications de base sur Fortigate
 
 Se rendre dans l'onglet **Systeme>Settings** et vérifier :
 
@@ -769,7 +776,7 @@ Pour vérifier que l'antivirus soit bien activé se rendre dans l'onglet **Syste
 
 Ensuite dans l'onglet **Security Profiles>AntiVirus** vérifier que le mode de scanning soit en **full**.  
 
-### 9.3.Bloquer une URL sur Fortigate
+### 10.3.Bloquer une URL sur Fortigate
 
 Dans notre exemple on va bloquer l'accès à Facebook.
 
@@ -782,7 +789,7 @@ Se rendre ensuite dans **Security Profiles>Web Filter** et configurer tel que:
 Cliquez sur **Apply** pour valider la modification.  
 
 <a id="annexe"></a>
-# 10.Annexes
+# 11.Annexes
 
 [Configuration complète de R1](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/R1_full.md)
 
