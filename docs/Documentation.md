@@ -621,6 +621,34 @@ Pour résumer l'opération:
 ![image](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/_tests/5.jpg?raw=true) 
 
 
+On remarque que sur AS1 le port Po2 est passé en FWD puisque l'interface entre AS1 et DS1 a été coupée.
+
+```
+AS1#show spanning-tree vlan 10
+
+VLAN0010
+  Spanning tree enabled protocol rstp
+  Root ID    Priority    24586
+             Address     0c20.33de.7c00
+             Cost        6
+             Port        66 (Port-channel2)
+             Hello Time   2 sec  Max Age 20 sec  Forward Delay 15 sec
+
+  Bridge ID  Priority    32778  (priority 32768 sys-id-ext 10)
+             Address     0c20.33e5.a700
+             Hello Time   2 sec  Max Age 20 sec  Forward Delay 15 sec
+             Aging Time  300 sec
+
+Interface           Role Sts Cost      Prio.Nbr Type
+------------------- ---- --- --------- -------- --------------------------------
+Gi2/0               Desg FWD 4         128.9    P2p Edge
+Po2                 Root FWD 3         128.66   P2p
+
+```
+
+
+
+
 ### 8.2.HSRP
 
 HRSP permet de faire la redondance de passerelle et assure la haute disponibilitée de passerelle d’un réseau en cas de problème au niveau de couche 3 (dans notre cas DS1 et DS2).  
