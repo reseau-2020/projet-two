@@ -515,7 +515,7 @@ Il suffit de reproduire la commande **ntp server ntp2.fortiguard.com** sur chaqu
 
 ### 7.3.SNMP
 
-
+A FAIRE
 
 <a id="test"></a>
 # 8.Tests de fiabilité et de sécurité
@@ -685,7 +685,7 @@ DS2 est root bridge et active hrsp pour VLAN 20 et 40, DS1 est standby.
 
 Une ip virtuelle sera associée au groupe, c’est le switch actif qui va répondre sur cette ip. Cette ip virtuelle est celle qui sera utilisée par les hôtes comme ip de default Gateway
 
-Si le switch standby pour un groupe de vlan ne reçoit plus des paquet hello pendant **3*hello time +1 seconde** de la part de switch actif il devient automatiquement active et le passerelle par défaut pour ce groupe.  
+Si le switch "standby" pour un groupe de vlan ne reçoit plus des paquets hello pendant **3*hello time +1 seconde** de la part de switch actif il devient automatiquement "active" et la passerelle par défaut pour ce groupe.  
 
 
 Sur DS2:
