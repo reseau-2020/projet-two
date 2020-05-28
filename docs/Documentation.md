@@ -708,6 +708,47 @@ L’adresse ip de switch virtuelle 10.128.20.254 c'est le Gateway de vlan 20
 
 ### 8.3.Tests de sécurité avec un poste "pirate"
 
+On place un poste pirate sur notre topologie tel que:
+
+![image](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/_secu/5.png?raw=true)  
+
+Depuis le poste pirate on regarde dans quel réseau il se situe:
+
+```
+[root@pirate ~]# ip a
+2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
+    link/ether 0c:3f:c7:ab:39:00 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.122.223/24 brd 192.168.122.255 scope global noprefixroute dynamic eth0
+```
+
+Sur le réseau **192.168.122.0** on lance une commande nmap:
+
+```
+[root@pirate ~]# nmap 192.168.122.0/24
+```
+
+Les résultats sont nombreux, on s'interesse à l'interface **192.168.122.106** qui est celle de notre Fortigate HQ:
+
+```
+Nmap scan report for 192.168.122.106
+Host is up (0.00099s latency).
+Not shown: 997 filtered ports
+PORT STATE SERVICE
+80/tcp open http
+113/tcp closed ident
+8080/tcp open http-proxy
+MAC Address: 0C:3F:C7:01:59:01 (Unknown)
+Nmap scan report for controller (192.168.122.132)
+Host is up (0.0011s latency).
+Not shown: 998 closed ports
+PORT STATE SERVICE
+22/tcp open ssh
+53/tcp open domain
+MAC Address: 0C:8F:3A:DC:36:01 (Unknown)
+```
+
+On remarque que les ports 80, 8080, 22 et 53 sont ouvert. Certains représentent des failles de sécurité qu'il faudra prendre en compte dans la configuration de HQ.
+
 
 
 <a id="monitoring"></a>
