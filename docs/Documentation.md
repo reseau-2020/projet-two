@@ -620,8 +620,34 @@ Pour résumer l'opération:
 
 ![image](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/_tests/5.jpg?raw=true) 
 
+Avant d'interrompre la connexion entre AS1 et DS1, Po1 est bien FWD et Po2 BLK
 
-On remarque que sur AS1 le port Po2 est passé en FWD puisque l'interface entre AS1 et DS1 a été coupée.
+```
+AS1#show spanning-tree vlan 10
+
+VLAN0010
+  Spanning tree enabled protocol rstp
+  Root ID    Priority    24586
+             Address     0c3f.c7e0.d100
+             Cost        3
+             Port        65 (Port-channel1)
+             Hello Time   2 sec  Max Age 20 sec  Forward Delay 15 sec
+
+  Bridge ID  Priority    32778  (priority 32768 sys-id-ext 10)
+             Address     0c3f.c73f.6700
+             Hello Time   2 sec  Max Age 20 sec  Forward Delay 15 sec
+             Aging Time  300 sec
+
+Interface           Role Sts Cost      Prio.Nbr Type
+------------------- ---- --- --------- -------- --------------------------------
+Gi2/0               Desg FWD 4         128.9    P2p Edge
+Po1                 Root FWD 3         128.65   P2p
+Po2                 Altn BLK 3         128.66   P2p
+```
+
+
+Lorsque l'on coupe la liaison entre AS1 et DS2 on remarque que Po2 passe en FWD !
+
 
 ```
 AS1#show spanning-tree vlan 10
