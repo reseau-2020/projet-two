@@ -661,6 +661,40 @@ May 27 15:46:40 gateway 113: May 27 13:46:40.566: %LINEPROTO-5-UPDOWN: Line prot
 On remarque que le routeur R1 a bien envoyé ces logs au serveur.
 
 
+### 8.6.Configuration avancée
+
+Mise en place d'une rotation de log avec logrotate. Afin d'éviter d'avoir un seul fichier avec toutes les logs dedans, on configure logrotate sur le serveur:
+
+```
+[root@syslogserver ~]# vi /etc/logrotate.conf
+```
+
+```
+daily
+rotate 12
+create
+dateext
+
+include /etc/logrotate.d    
+```
+
+De cette manière un fichier sera crée chaque jour et pour une durée de 12 semaines. Sa date sera également mentionnée.
+
+Configuration sur le poste de travail PC1 par exemple:
+
+```
+vi /etc/rsyslog.conf
+```
+Et modifier la ligne tel que:
+
+
+```
+*.info;mail.none;authpriv.none;cron.none                /var/log/syslogBackup/PC1
+```
+
+Ainsi les logs seront envoyées sur le serveur dans le répertoire /syslogBackup et sous le nom PC1, il sera plus facile d'identifier l'origine des messages.
+
+
 <a id="secu"></a>
 # 9.Sécurité
 
