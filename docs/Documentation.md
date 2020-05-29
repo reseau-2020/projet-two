@@ -28,7 +28,12 @@ L'ensemble des opérations se déroule suivant un [planning](https://docs.google
 <a id="Topo"></a>
 # 1.Topologie
 
-On présente la topologie choisie:
+**Topologie tripod** : Couche Core maillée de trois routeurs
+
+**Topologie switchbloc** : 4 vlans utiles dans les couches Access et Distribution (assuré par RSTP, Etherchannel et HSRP)
+
+Connexion à un site distant avec un tunnel VPN et pare-feu Fortigate
+
 
 ![image](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/topoFULL.png?raw=true) 
 
