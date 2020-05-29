@@ -18,19 +18,20 @@ L'ensemble des opérations se déroule suivant un [planning](https://docs.google
 #### [3.Configuration de Ansible IPv4 (playbooks)](#playbooks)
 #### [4.Configuration IPv6](#ipv6)
 #### [5.Configuration d'un accès Internet avec Fortigate](#fortigate)
-#### [6.Mise en place d'un site distant via un VPN IPSEC avec Fortigate](#vpn)
-#### [7.Configuration des services d'infrastructures (DNS, NTP](#infra)
-#### [8.Tests de fiabilité et de sécurité](#test)
-#### [9.Mise en place du monitoring (syslog, SNMP)](#monitoring)
-#### [10.Sécurité générale](#secu)
+#### [6.Mise en place d'un site distant via un PVN IPSEC avec Fortigate](#vpn)
+#### [7.Configuration des services d'infrastructures (DNS)](#infra)
+#### [8.Tests de fiabilité du réseau (Spanning tree, HSRP)](#test)
+#### [9.Service de gestion (NTP) et monitoring (syslog, SNMP)](#monitoring)
+#### [10.Sécurité (générale et NMAP)](#secu)
 #### [11.Annexes](#annexe)
+
 
 <a id="Topo"></a>
 # 1.Topologie
 
 **Topologie tripod** : Couche Core maillée de trois routeurs
 
-**Topologie switchbloc** : 4 vlans utiles dans les couches Access et Distribution (assuré par RSTP, Etherchannel et HSRP)
+**Topologie switchbloc** : 4 vlans utiles dans les couches **Access** et **Distribution** (assuré par RSTP, Etherchannel et HSRP)
 
 Connexion à un site distant avec un tunnel VPN et pare-feu Fortigate
 
@@ -190,6 +191,13 @@ R1(config)#interface g0/1
 R1(config-if)#ipv6 add autoconfig
 ```
 
+Sur l’interface g0/1 de R1 on configure une adresse IPv6 publique :
+
+```
+R1(config)#interface g0/1
+R1(config-if)#ipv6 add 2001:470:c814:2fff::2/64
+```
+
 Vérification:
 
 ```
@@ -198,13 +206,6 @@ R1#sh ipv6 interface brief
 GigabitEthernet0/1     [up/up]
     FE80::E3F:C7FF:FE04:5001
     2001:470:C814:2FFF::2
-```
-
-Sur l’interface g0/1 de R1 on configure une adresse IPv6 publique :
-
-```
-R1(config)#interface g0/1
-R1(config-if)#ipv6 add 2001:470:c814:2fff::2/64
 ```
 
 On peut à présent tester la connectivité entre R1 et HQ via un ping:
@@ -283,9 +284,7 @@ EIGRP-IPv6 Protocol for AS(1)
   Interfaces:
     GigabitEthernet0/2
     GigabitEthernet0/3
-    GigabitEthernet0/0 (passive)
-  Redistribution:
-    Redistributing protocol static
+    GigabitEthernet0/0 (passive) 
 ```
 
 
@@ -332,11 +331,15 @@ PC1> ping 1.1.1.1
 84 bytes from 1.1.1.1 icmp_seq=3 ttl=55 time=9.809 ms
 ```
 
+**IMPORTANT**: ne pas oublier d'activer le NAT dans **Policy & Objects>IPv4 Policy**:
+
+![image](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/_Wan/NAT.png?raw=true)
+
 
 <a id="vpn"></a>
-# 6.Mise en place d'un site distant via un VPN IPSEC avec Fortigate
+# 6.Mise en place d'un site distant via un PVN IPSEC avec Fortigate
 
-L'objectif est de mettre en place un site distant qui communique avec l'infrastructure de base à travers un tunnel IPSEC. Selon la topologie, PC9 sera capable de communiquer avec PC1 à PC8 et inversement. 
+L'objectif est de mettre en place un site distant qui communiquere avec l'infrastructure de base à travers un tunnel IPSEC. Selon la topologie, PC9 sera capable de communiquer avec PC1 à PC8 et inversement. 
 
 Dans un premier temps on configure le réseau local de PC9: 
 
@@ -350,7 +353,7 @@ Voir la configuration de R4 en annexe, [Configuration de R4](https://github.com/
 Il faut également définir une route statique entre Branch et le routeur R4, on récupère l'adresse de BRANCH:  
 
 ```
-HQ # get system interface physical
+BRANCH # get system interface physical
         ==[port2]
                 mode: dhcp
                 ip: 192.168.122.195 255.255.255.0
@@ -474,52 +477,10 @@ www.google.com resolved to 216.58.209.228
 84 bytes from 216.58.209.228 icmp_seq=3 ttl=52 time=9.246 ms
 ```
 
-La résolution de nom est bien fonctionelle.
-
-
-### 7.2.NTP
-
-Pour la mise en place de ce service, on se rend sur l'interface de HQ dans l'onglet **System>Settings**: 
-
-![image](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/_tests/6.jpg?raw=true)  
-
-On Prend soin de cocher **Setup device as local NTP server** et d'indiquer l'interface local dans le champs **Listen on Interfaces**  
-
-Se rendre sur HQ en invite de commande pour récupérer le serveur NTP pour la synchronisation des routeurs:
-
-```
-HQ # diag sys ntp status
-synchronized: yes, ntpsync: enabled, server-mode: enabled
-
-ipv4 server(ntp2.fortiguard.com) 208.91.114.23 -- reachable(0xff) S:3 T:3
-        server-version=4, stratum=2
-        reference time is e278e290.ffd36404 -- UTC Wed May 27 14:58:56 2020
-        clock offset is 0.000957 sec, root delay is 0.000137 sec
-        root dispersion is 0.012604 sec, peer dispersion is 40 msec
-```
-
-On utilisera **ntp2.fortiguard.com** comme serveur de synchronisation sur les autres composants, sur R1 par exemple:
-
-```
-R2(config)#ntp server ntp2.fortiguard.com
-R2(config)#do sh ntp status
-Clock is unsynchronized, stratum 3, reference is 208.91.114.23
-nominal freq is 1000.0003 Hz, actual freq is 1000.0003 Hz, precision is 2**17
-ntp uptime is 89300 (1/100 of seconds), resolution is 1000
-reference time is E278E292.156CE153 (14:58:58.083 cest Wed May 27 2020)
-clock offset is 21.8861 msec, root delay is 147.23 msec
-root dispersion is 44.05 msec, peer dispersion is 0.98 msec
-loopfilter state is 'FREQ' (Drift being measured), drift is 0.000000000 s/s
-system poll interval is 64, last update was 19 sec ago.
-```
-
-On remarque que la reference est bien la bonne **208.91.114.23** <=> **ntp2.fortiguard.com**.
-
-Il suffit de reproduire la commande **ntp server ntp2.fortiguard.com** sur chaques élément de la topologie.
-
+La résolution de nom est bien fonctionelle mais pas en interne (PC1 vers PC5 par exemple)
 
 <a id="test"></a>
-# 8.Tests de fiabilité et de sécurité
+# 8.Tests de fiabilité du réseau
 
 ### 8.1.Spanning tree
 
@@ -675,7 +636,6 @@ Po2                 Root FWD 3         128.66   P2p
 
 
 
-
 ### 8.2.HSRP
 
 HRSP permet de faire la redondance de passerelle et assure la haute disponibilitée de passerelle d’un réseau en cas de problème au niveau de couche 3 (dans notre cas DS1 et DS2).  
@@ -707,59 +667,63 @@ Pour le groupe 20 (vlan 20) c'est l'adresse local de DS2 qui est active et l'adr
 L’adresse ip de switch virtuelle 10.128.20.254 c'est le Gateway de vlan 20  
 
 
-### 8.3.Tests de sécurité avec un poste "pirate"
+**Remarque**: En cas d'une panne de connectivité entre AS1 et DS1, le HSRP réduit la priorité du groupe de veille sur DS1. DS1 va d'un état active à un état de réserve. DS2 va d'un état de réserve à un état active.  
+L'adresse IP de réserve 10.128.10.254 devient active sur R2. 
 
-On place un poste pirate sur notre topologie tel que:
-
-![image](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/_secu/5.png?raw=true)  
-
-Depuis le poste pirate on regarde dans quel réseau il se situe:
-
-```
-[root@pirate ~]# ip a
-2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
-    link/ether 0c:3f:c7:ab:39:00 brd ff:ff:ff:ff:ff:ff
-    inet 192.168.122.223/24 brd 192.168.122.255 scope global noprefixroute dynamic eth0
-```
-
-Sur le réseau **192.168.122.0** on lance une commande nmap:
-
-```
-[root@pirate ~]# nmap 192.168.122.0/24
-```
-
-Les résultats sont nombreux, on s'interesse à l'interface **192.168.122.106** qui est celle de notre Fortigate HQ:
-
-```
-Nmap scan report for 192.168.122.106
-Host is up (0.00099s latency).
-Not shown: 997 filtered ports
-PORT STATE SERVICE
-80/tcp open http
-113/tcp closed ident
-8080/tcp open http-proxy
-MAC Address: 0C:3F:C7:01:59:01 (Unknown)
-Nmap scan report for controller (192.168.122.132)
-Host is up (0.0011s latency).
-Not shown: 998 closed ports
-PORT STATE SERVICE
-22/tcp open ssh
-53/tcp open domain
-MAC Address: 0C:8F:3A:DC:36:01 (Unknown)
-```
-
-On remarque que les ports 80, 8080, 22 et 53 sont ouvert. Certains représentent des failles de sécurité qu'il faudra prendre en compte dans la configuration de HQ.
 
 
 
 <a id="monitoring"></a>
-# 9.Mise en place du monitoring (syslog, SNMP)
+# 9.Service de gestion (NTP) et monitoring (syslog, SNMP)
+
+### 9.1.NTP
+
+Pour la mise en place de ce service, on se rend sur l'interface de HQ dans l'onglet **System>Settings**: 
+
+![image](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/_tests/6.jpg?raw=true)  
+
+On Prend soin de cocher **Setup device as local NTP server** et d'indiquer l'interface local dans le champs **Listen on Interfaces**  
+
+Se rendre sur HQ en invite de commande pour récupérer le serveur NTP pour la synchronisation des routeurs:
+
+```
+HQ # diag sys ntp status
+synchronized: yes, ntpsync: enabled, server-mode: enabled
+
+ipv4 server(ntp2.fortiguard.com) 208.91.114.23 -- reachable(0xff) S:3 T:3
+        server-version=4, stratum=2
+        reference time is e278e290.ffd36404 -- UTC Wed May 27 14:58:56 2020
+        clock offset is 0.000957 sec, root delay is 0.000137 sec
+        root dispersion is 0.012604 sec, peer dispersion is 40 msec
+```
+
+On utilisera **ntp2.fortiguard.com** comme serveur de synchronisation sur les autres composants, sur R1 par exemple:
+
+```
+R2(config)#ntp server ntp2.fortiguard.com
+R2(config)#do sh ntp status
+Clock is unsynchronized, stratum 3, reference is 208.91.114.23
+nominal freq is 1000.0003 Hz, actual freq is 1000.0003 Hz, precision is 2**17
+ntp uptime is 89300 (1/100 of seconds), resolution is 1000
+reference time is E278E292.156CE153 (14:58:58.083 cest Wed May 27 2020)
+clock offset is 21.8861 msec, root delay is 147.23 msec
+root dispersion is 44.05 msec, peer dispersion is 0.98 msec
+loopfilter state is 'FREQ' (Drift being measured), drift is 0.000000000 s/s
+system poll interval is 64, last update was 19 sec ago.
+```
+
+On remarque que la reference est bien la bonne **208.91.114.23** <=> **ntp2.fortiguard.com**.
+
+Il suffit de reproduire la commande **ntp server ntp2.fortiguard.com** sur chaques élément de la topologie.
+
+
+### 9.2.Monitoring (syslog) - Configuration du serveur:
+
 
 Schéma simplifié de l'infrastructure: 
 
 ![image](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/_monitoring/8.jpg?raw=true)
-
-### 9.1.Configuration du serveur  
+  
 
 On prendra une machine Centos-7 en tant que serveur syslog.  
 Pour commencer on installe **rsyslog**: 
@@ -805,7 +769,7 @@ On prend soin de décommenter la partie **UDP et TCP syslog reception** et de mo
 systemctl restart rsyslog
 ```
 
-### 9.2.Configuration du client (poste de travail)
+### 9.3.Monitoring (syslog) - Configuration du client (poste de travail)
 
 Cette étape est à reproduire sur chaque poste de travail, on prend ici l'exemple de PC5:
 
@@ -860,7 +824,7 @@ systemctl restart rsyslog
 
 A présent **toutes** les traces syslog seront rédirigées vers le serveur. 
 
-### 9.3.Configuration du client (élément CISCO)
+### 9.4.Monitoring (syslog) - Configuration du client (élément CISCO)
 
 On prend l'exemple du routeur R1 dans notre topologie, en mode de configuration:
 
@@ -898,7 +862,7 @@ Trap logging: level debugging, 111 message lines logged
         Logging to 10.192.1.101
 ```
 
-### 9.4.Configuration du client (Fortigate)
+### 9.5.Monitoring (syslog) - Configuration du client (Fortigate)
 
 Se rendre dans l'interface graphique de HQ dans l'onglet **Log & Report>Log Settings**, on active le logging syslog et on prend soin d'indiquer notre serveur, ici **10.192.1.101**:
 
@@ -906,7 +870,9 @@ Se rendre dans l'interface graphique de HQ dans l'onglet **Log & Report>Log Sett
 
 On remarque le nombre de choix possible à envoyer au serveur.
 
-### 9.5.Vérifications
+
+### 9.6.Monitoring (syslog) - Vérifications
+
 
 On laisse le fichier de réception des logs ouvert sur le serveur:
 
@@ -931,7 +897,7 @@ May 27 15:46:40 gateway 113: May 27 13:46:40.566: %LINEPROTO-5-UPDOWN: Line prot
 On remarque que le routeur R1 a bien envoyé ces logs au serveur.
 
 
-### 9.6.Configuration avancée
+### 9.7.Monitoring (syslog) - Configuration avancée
 
 Mise en place d'une rotation de log avec logrotate. Afin d'éviter d'avoir un seul fichier avec toutes les logs dedans, on configure logrotate sur le serveur:
 
@@ -965,7 +931,7 @@ Et modifier la ligne tel que:
 Ainsi les logs seront envoyées sur le serveur dans le répertoire /syslogBackup et sous le nom PC1, il sera plus facile d'identifier l'origine des messages.
 
 
-### 9.7.SNMP
+### 9.8.Mise en place de SNMP
 
 SNMP est un protocole standard permettant la supervision de machines informatiques. Il permet entre autre de récupérer des informations sur l’état des équipements. 
 
@@ -1071,7 +1037,7 @@ Vl40        46   100   Active  local           FE80::D:3       FE80::D:1
 
 
 <a id="secu"></a>
-# 10.Sécurité générale
+# 10.Sécurité (générale et NMAP)
 
 ### 10.1.Comptes utilisateurs
 
@@ -1106,6 +1072,53 @@ Se rendre ensuite dans **Security Profiles>Web Filter** et configurer tel que:
 ![image](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/_secu/2.jpg?raw=true) 
 
 Cliquez sur **Apply** pour valider la modification.  
+
+
+### 10.4.Tests de sécurité externe avec la commande NMAP
+
+
+On place un poste pirate sur notre topologie tel que:
+
+![image](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/_secu/5.png?raw=true)  
+
+Depuis le poste pirate on regarde dans quel réseau il se situe:
+
+```
+[root@pirate ~]# ip a
+2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
+    link/ether 0c:3f:c7:ab:39:00 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.122.223/24 brd 192.168.122.255 scope global noprefixroute dynamic eth0
+```
+
+Sur le réseau **192.168.122.0** on lance une commande nmap:
+
+```
+[root@pirate ~]# nmap 192.168.122.0/24
+```
+
+Les résultats sont nombreux, on s'interesse à l'interface **192.168.122.106** qui est celle de notre Fortigate HQ:
+
+```
+Nmap scan report for 192.168.122.106
+Host is up (0.00099s latency).
+Not shown: 997 filtered ports
+PORT STATE SERVICE
+80/tcp open http
+113/tcp closed ident
+8080/tcp open http-proxy
+MAC Address: 0C:3F:C7:01:59:01 (Unknown)
+Nmap scan report for controller (192.168.122.132)
+Host is up (0.0011s latency).
+Not shown: 998 closed ports
+PORT STATE SERVICE
+22/tcp open ssh
+53/tcp open domain
+MAC Address: 0C:8F:3A:DC:36:01 (Unknown)
+```
+
+On remarque que les ports 80, 8080, 22 et 53 sont ouvert. Certains représentent des failles de sécurité qu'il faudra prendre en compte dans la configuration de HQ.
+
+
 
 <a id="annexe"></a>
 # 11.Annexes
