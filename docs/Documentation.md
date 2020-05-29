@@ -680,6 +680,16 @@ Vl10        10   100   Standby 10.128.10.252   local           10.128.10.254
 Vl20        20   150   Active  local           10.128.20.252   10.128.20.254
 ```
 
+Avec cette commande on voit bien que 10.128.10.252 est l’adresse ip de DS1 qui est active et l’état de switch local qui est DS2 est en standby pour le vlan10.  
+
+L’adresse ip de switch virtuelle 10.128.10.254 c'est le Gateway de vlan 10  
+Pour le groupe 20 (vlan 20) c'est l'adresse local de DS2 qui est active et l'adresse de DS1 (10.128.20.252 ) en standby  
+L’adresse ip de switch virtuelle 10.128.20.254 c'est le Gateway de vlan 20  
+
+
+**Remarque**: En cas d'une panne de connectivité entre AS1 et DS1, le HSRP réduit la priorité du groupe de veille sur DS1. DS1 va d'un état active à un état de réserve. DS2 va d'un état de réserve à un état active.  
+L'adresse IP de réserve 10.128.10.254 devient active sur R2. 
+
 Vérification sur DS1:
 
 ```
@@ -696,17 +706,6 @@ Vl30        36   150   Active  local           FE80::D:3       FE80::D:1
 Vl40        40   100   Active  local           10.128.40.253   10.128.40.254
 Vl40        46   100   Active  local           FE80::D:3       FE80::D:1
 ```
-
-
-Avec cette commande on voit bien que 10.128.10.252 est l’adresse ip de DS1 qui est active et l’état de switch local qui est DS2 est en standby pour le vlan10.  
-
-L’adresse ip de switch virtuelle 10.128.10.254 c'est le Gateway de vlan 10  
-Pour le groupe 20 (vlan 20) c'est l'adresse local de DS2 qui est active et l'adresse de DS1 (10.128.20.252 ) en standby  
-L’adresse ip de switch virtuelle 10.128.20.254 c'est le Gateway de vlan 20  
-
-
-**Remarque**: En cas d'une panne de connectivité entre AS1 et DS1, le HSRP réduit la priorité du groupe de veille sur DS1. DS1 va d'un état active à un état de réserve. DS2 va d'un état de réserve à un état active.  
-L'adresse IP de réserve 10.128.10.254 devient active sur R2. 
 
 
 --- 
