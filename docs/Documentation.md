@@ -18,7 +18,7 @@ L'ensemble des opérations se déroule suivant un [planning](https://docs.google
 #### [3.Configuration de Ansible IPv4 (playbooks)](#playbooks)
 #### [4.Configuration IPv6](#ipv6)
 #### [5.Configuration d'un accès Internet avec Fortigate](#fortigate)
-#### [6.Mise en place d'un site distant via un PVN IPSEC avec Fortigate](#vpn)
+#### [6.Mise en place d'un site distant via un VPN IPSEC avec Fortigate](#vpn)
 #### [7.Configuration des services d'infrastructures (DNS, NTP](#infra)
 #### [8.Tests de fiabilité et de sécurité](#test)
 #### [9.Mise en place du monitoring (syslog, SNMP)](#monitoring)
@@ -334,9 +334,9 @@ PC1> ping 1.1.1.1
 
 
 <a id="vpn"></a>
-# 6.Mise en place d'un site distant via un PVN IPSEC avec Fortigate
+# 6.Mise en place d'un site distant via un VPN IPSEC avec Fortigate
 
-L'objectif est de mettre en place un site distant qui communiquere avec l'infrastructure de base à travers un tunnel IPSEC. Selon la topologie, PC9 sera capable de communiquer avec PC1 à PC8 et inversement. 
+L'objectif est de mettre en place un site distant qui communique avec l'infrastructure de base à travers un tunnel IPSEC. Selon la topologie, PC9 sera capable de communiquer avec PC1 à PC8 et inversement. 
 
 Dans un premier temps on configure le réseau local de PC9: 
 
