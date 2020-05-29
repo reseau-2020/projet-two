@@ -35,7 +35,7 @@ On présente la topologie choisie:
 <a id="plan"></a>
 # 2.Plan d'adressage Ipv4/Ipv6 
 
-### TRIPOD
+### Tripod
 
 | Routeur | Interface |       IPv4      |                            IPv6                           |    Description    |
 |:-------:|:---------:|:---------------:|:---------------------------------------------------------:|:-----------------:|
