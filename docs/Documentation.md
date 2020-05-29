@@ -38,6 +38,9 @@ Connexion à un site distant avec un tunnel VPN et pare-feu Fortigate
 
 ![image](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/topoFULL.png?raw=true) 
 
+
+--- 
+
 <a id="plan"></a>
 # 2.Plan d'adressage Ipv4/Ipv6 
 
