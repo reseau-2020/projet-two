@@ -983,7 +983,8 @@ Cliquer sur **Create New** tel que:
 
 ![image](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/_SNMP/snmp2.png?raw=true)
 
-Prendre soin d'indiquer l'adresse ip avec son masque de l'hote, ici **11.12.13.1 255.255.255.255**, dans le type d'hote selectionner **Send traps only**.
+Prendre soin d'indiquer l'adresse ip avec son masque de l'hote, ici **11.12.13.1 255.255.255.255**, dans le type d'hote selectionner **Send traps only** et laisser les ports par défaut **161** et **162**.
+
 
 
 
@@ -1004,6 +1005,8 @@ Vl30        36   150   Active  local           FE80::D:3       FE80::D:1
 Vl40        40   100   Active  local           10.128.40.253   10.128.40.254
 Vl40        46   100   Active  local           FE80::D:3       FE80::D:1
 ```
+
+
 
 <a id="secu"></a>
 # 10.Sécurité
