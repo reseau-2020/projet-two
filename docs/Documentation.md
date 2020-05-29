@@ -16,7 +16,7 @@ L'ensemble des opérations se déroule suivant un [planning](https://docs.google
 #### [1.Topologie](#Topo)
 #### [2.Plan d'adressage Ipv4/Ipv6](#plan)
 #### [3.Configuration de Ansible IPv4 (playbooks)](#playbooks)
-#### [4.Configuration IPv6](#ipv6)
+#### [4.Configuration d'un accès Internet en IPv6](#ipv6)
 #### [5.Configuration d'un accès Internet avec Fortigate](#fortigate)
 #### [6.Mise en place d'un site distant via un PVN IPSEC avec Fortigate](#vpn)
 #### [7.Configuration des services d'infrastructures (DNS)](#infra)
@@ -179,7 +179,7 @@ Pour la configuration complète de chaque éléments de la topologie, se rendre 
 
 
 <a id="ipv6"></a>
-# 4.Configuration IPv6
+# 4.Configuration d'un accès Internet en IPv6
 
 Pour la configuration de IPv6 on fera cela manuellement, bien que cela soit possible via ansible.
 
