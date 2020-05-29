@@ -126,6 +126,9 @@ Connexion à un site distant avec un tunnel VPN et pare-feu Fortigate
 |              | port 2 - WAN | dynamique | 2001:470:c814::22/64 ipv6  vers l'internet fe80::e3f:c7ff:fe01:5901  |
 
 
+--- 
+
+
 <a id="playbooks"></a>
 # 3.Configuration de Ansible (playbooks) 
 
@@ -170,6 +173,9 @@ Laisser le livre de jeu dérouler la configuration...
 
 
 Pour la configuration complète de chaque éléments de la topologie, se rendre dans la partie [10.Annexes](#annexe).
+
+
+--- 
 
 
 <a id="ipv6"></a>
@@ -290,6 +296,8 @@ EIGRP-IPv6 Protocol for AS(1)
     GigabitEthernet0/0 (passive) 
 ```
 
+--- 
+
 
 <a id="fortigate"></a>
 # 5.Configuration d'un accès Internet avec Fortigate
@@ -337,6 +345,9 @@ PC1> ping 1.1.1.1
 **IMPORTANT**: ne pas oublier d'activer le NAT dans **Policy & Objects>IPv4 Policy**:
 
 ![image](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/_Wan/NAT.png?raw=true)
+
+
+--- 
 
 
 <a id="vpn"></a>
@@ -434,6 +445,9 @@ La connectivité est bien établie.
 
 **Remarque importante**: l'adresse Ipv4 définie sur les ports 2 respectifs de HQ et BRANCH est définie dynamiquement par DHCP, il se peut donc qu'elle soit ammenée à changer !
 
+--- 
+
+
 <a id="infra"></a>
 # 7.Configuration des services d'infrastructures
 
@@ -481,6 +495,9 @@ www.google.com resolved to 216.58.209.228
 ```
 
 La résolution de nom est bien fonctionelle mais pas en interne (PC1 vers PC5 par exemple)
+
+--- 
+
 
 <a id="test"></a>
 # 8.Tests de fiabilité du réseau
@@ -663,6 +680,24 @@ Vl10        10   100   Standby 10.128.10.252   local           10.128.10.254
 Vl20        20   150   Active  local           10.128.20.252   10.128.20.254
 ```
 
+Vérification sur DS1:
+
+```
+DS1#sh standby brief
+                     P indicates configured to preempt.
+                     |
+Interface   Grp  Pri P State   Active          Standby         Virtual IP
+Vl10        10   150   Active  local           10.128.10.253   10.128.10.254
+Vl10        16   150   Active  local           FE80::D:3       FE80::D:1
+Vl20        20   100   Active  local           10.128.20.253   10.128.20.254
+Vl20        26   100   Active  local           FE80::D:3       FE80::D:1
+Vl30        30   150   Active  local           10.128.30.253   10.128.30.254
+Vl30        36   150   Active  local           FE80::D:3       FE80::D:1
+Vl40        40   100   Active  local           10.128.40.253   10.128.40.254
+Vl40        46   100   Active  local           FE80::D:3       FE80::D:1
+```
+
+
 Avec cette commande on voit bien que 10.128.10.252 est l’adresse ip de DS1 qui est active et l’état de switch local qui est DS2 est en standby pour le vlan10.  
 
 L’adresse ip de switch virtuelle 10.128.10.254 c'est le Gateway de vlan 10  
@@ -674,6 +709,7 @@ L’adresse ip de switch virtuelle 10.128.20.254 c'est le Gateway de vlan 20
 L'adresse IP de réserve 10.128.10.254 devient active sur R2. 
 
 
+--- 
 
 
 <a id="monitoring"></a>
@@ -1019,24 +1055,8 @@ On peut faire un test de communication avec la commande **snmpwalk**:
 snmpwalk -v 2c -c ajc R1
 ```
 
-Vérification sur DS1:
 
-
-```
-DS1#sh standby brief
-                     P indicates configured to preempt.
-                     |
-Interface   Grp  Pri P State   Active          Standby         Virtual IP
-Vl10        10   150   Active  local           10.128.10.253   10.128.10.254
-Vl10        16   150   Active  local           FE80::D:3       FE80::D:1
-Vl20        20   100   Active  local           10.128.20.253   10.128.20.254
-Vl20        26   100   Active  local           FE80::D:3       FE80::D:1
-Vl30        30   150   Active  local           10.128.30.253   10.128.30.254
-Vl30        36   150   Active  local           FE80::D:3       FE80::D:1
-Vl40        40   100   Active  local           10.128.40.253   10.128.40.254
-Vl40        46   100   Active  local           FE80::D:3       FE80::D:1
-```
-
+--- 
 
 
 <a id="secu"></a>
@@ -1121,6 +1141,7 @@ MAC Address: 0C:8F:3A:DC:36:01 (Unknown)
 
 On remarque que les ports 80, 8080, 22 et 53 sont ouvert. Certains représentent des failles de sécurité qu'il faudra prendre en compte dans la configuration de HQ.
 
+--- 
 
 
 <a id="annexe"></a>
