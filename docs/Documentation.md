@@ -22,7 +22,7 @@ L'ensemble des opérations se déroule suivant un [planning](https://docs.google
 #### [7.Configuration des services d'infrastructures (DNS, NTP](#infra)
 #### [8.Tests de fiabilité et de sécurité](#test)
 #### [9.Mise en place du monitoring (syslog, SNMP)](#monitoring)
-#### [10.Sécurité](#secu)
+#### [10.Sécurité générale](#secu)
 #### [11.Annexes](#annexe)
 
 <a id="Topo"></a>
@@ -1009,7 +1009,7 @@ Vl40        46   100   Active  local           FE80::D:3       FE80::D:1
 
 
 <a id="secu"></a>
-# 10.Sécurité
+# 10.Sécurité générale
 
 ### 10.1.Comptes utilisateurs
 
@@ -1017,6 +1017,8 @@ Par mesure de sécurité les comptes "root" ne sont utilisés que par certains a
 
 -Au moins 8 caractères, combinaison de chiffres, lettres et caractères spéciaux.  
 -Les mots de passes expirent tous les 90 jours.  
+
+On pensera également à installer un logiciel de gestion de mot de passe de type KeePass.
 
 
 ### 10.2.Vérifications de base sur Fortigate
