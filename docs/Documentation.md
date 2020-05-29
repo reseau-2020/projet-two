@@ -962,7 +962,25 @@ Ainsi les logs seront envoyées sur le serveur dans le répertoire /syslogBackup
 
 ### 9.7.SNMP
 
-On récupère l'adresse IPv4 du serveur qui servira d'hôte, ici on prendra le controller:
+SNMP est un protocole standard permettant la supervision de machines informatiques. Il permet entre autre de récupérer des informations sur l’état des équipements. 
+
+SNMP permet aussi d'agir sur l'equipement (modification de la configuration par exemple)  
+
+Un serveur de supervision peut envoyer des requêtes aux clients: ce qu’on appelle le polling dans ce cas SNMP utilise UDP sur le port 161
+
+Il est aussi possible que le client prenne l’initiative d’envoyer des informations au serveur, le message s’appelle alors une trap. Les traps sont envoyées en UDP sur le port 162
+
+Une architecture SMP est divisée en 3 parties:
+
+**Le managed Devices**: les clients managés       
+
+**Les agents**: applications sur les clients, chargées d’envoyer les infos
+
+**Le network Managed Systems**: interfaces à travers lesquelles les admins peuvent réaliser destaches d’administration
+
+Il existe 3 versions de SNMP: V1, V2 et V3. En version 1 et 2, le mecanisme de securité repose sur des communautés. Dans la V3, la sécurité est plus poussée. Elle propose le **chiffrement et l’authentification**.
+
+Dans un premier temps on configure sur HQ, pour cela on récupère l'adresse IPv4 du serveur qui servira d'hôte, ici on prendra le controller:
 
 ```
 [root@controller ~]# ip a
@@ -973,6 +991,13 @@ On récupère l'adresse IPv4 du serveur qui servira d'hôte, ici on prendra le c
  ```
 
 Ici **11.12.13.1**
+
+
+On installe également le package sur le serveur:
+
+```
+yum -y install net-snmp-utils
+```
 
 
 Se rendre dans l'interface de HQ, dans l'onglet **System>SNMP** et configurer tel que:
@@ -986,7 +1011,39 @@ Cliquer sur **Create New** tel que:
 Prendre soin d'indiquer l'adresse ip avec son masque de l'hote, ici **11.12.13.1 255.255.255.255**, dans le type d'hote selectionner **Send traps only** et laisser les ports par défaut **161** et **162**.
 
 
+Configuration sur les périphériques (R1, R2, R3, DS1 et DS2)
 
+On définie les IP autorisées à interroger l’équipement en cas de polling (dans notre cas le serveur à pour adresse **11.12.13.1**) 
+
+```
+ip access-list standard SNMPSrv 
+permit 11.12.13.1 0.0.0.0
+```
+
+Configuration des communautés:
+
+```
+snmp-server community ajc rw SNMPSrv
+```
+
+Activation des traps:
+
+```
+snmp-server enable traps
+```
+
+On définie l'adresse de destination des traps, ici notre serveur en **11.12.13.1**
+
+```
+snmp-server host 11.12.13.1 ajc
+```
+
+
+On peut faire un test de communication avec la commande **snmpwalk**:
+
+```
+snmpwalk -v 2c -c ajc R1
+```
 
 Vérification sur DS1:
 
