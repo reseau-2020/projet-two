@@ -962,7 +962,30 @@ Ainsi les logs seront envoyées sur le serveur dans le répertoire /syslogBackup
 
 ### 9.7.SNMP
 
-A FAIRE
+On récupère l'adresse IPv4 du serveur qui servira d'hôte, ici on prendra le controller:
+
+```
+[root@controller ~]# ip a
+
+2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
+    link/ether 0c:20:33:41:5a:00 brd ff:ff:ff:ff:ff:ff
+    inet 11.12.13.1/24
+ ```
+
+Ici **11.12.13.1**
+
+
+Se rendre dans l'interface de HQ, dans l'onglet **System>SNMP** et configurer tel que:
+
+![image](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/_SNMP/snmp1.png?raw=true)
+
+Cliquer sur **Create New** tel que:
+
+![image](https://github.com/reseau-2020/projet-two/blob/master/docs/_annexes/_SNMP/snmp2.png?raw=true)
+
+Prendre soin d'indiquer l'adresse ip avec son masque de l'hote, ici **11.12.13.1 255.255.255.255**, dans le type d'hote selectionner **Send traps only**.
+
+
 
 Vérification sur DS1:
 
